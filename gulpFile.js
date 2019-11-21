@@ -28,15 +28,38 @@ const sassTask = (done) => {
   done();
 };
 
-const buildTask = (done) => {
-  gulp.src(['./client/*.js'])
-    .pipe(concat('bundle.js'))
+const loginBundleTask = (done) => {
+  // grab all the files we want to combine into our bundle
+  gulp.src(['./client/login/*.js', './client/helper/*.js'])
+    .pipe(concat('loginBundle.js'))
     .pipe(babel({
       presets: ['@babel/preset-env', '@babel/preset-react'],
     }))
     .pipe(gulp.dest('./hosted/'));
+
   done();
 };
+
+const appBundleTask = (done) => {
+  gulp.src(['./client/app/*.js', './client/helper/*.js'])
+    .pipe(concat('appBundle.js'))
+    .pipe(babel({
+      presets: ['@babel/preset-env', '@babel/preset-react'],
+    }))
+    .pipe(gulp.dest('./hosted/'));
+
+  done();
+};
+
+// const buildTask = (done) => {
+//   gulp.src(['./client/*.js'])
+//     .pipe(concat('bundle.js'))
+//     .pipe(babel({
+//       presets: ['@babel/preset-env', '@babel/preset-react'],
+//     }))
+//     .pipe(gulp.dest('./hosted/'));
+//   done();
+// };
 
 // Here we are defining a task that will run ESLint on our server code.
 const lintTask = (done) => {
@@ -58,7 +81,7 @@ const lintTask = (done) => {
 // we can create a "build" script that can run them all. Since none of them are
 // reliant on each other, we can have them all run in parallel. After exporting
 // this, we can write a script like our "build" script in package.json.
-module.exports.build = gulp.parallel(sassTask, buildTask, lintTask);
+module.exports.build = gulp.parallel(sassTask, loginBundleTask, appBundleTask, lintTask);
 
 
 // We can also use our above tasks in a watch script. Just like our previous
@@ -72,7 +95,8 @@ const watch = () => {
 
   // We also want it to watch our client side javascript, and if there are any
   // changes, we want it to run the jsTask from above.
-  //   gulp.watch('./client/*.js', appBundleTask);
+  gulp.watch(['./client/login/*.js', './client/helper/*.js'], loginBundleTask);
+  gulp.watch(['./client/app/*.js', './client/helper/*.js'], appBundleTask);
 
   // Finally, we want to start up nodemon to restart whenever our code changes.
   // Nodemon will watch EVERY file in our project, and will restart our 'script'

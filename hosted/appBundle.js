@@ -1,19 +1,17 @@
 "use strict";
 
 /* eslint-disable linebreak-style */
-
-/* eslint-disable eqeqeq */
-
-/* eslint-disable no-unused-vars */
-
-/* eslint-disable object-shorthand */
-
-/* eslint-disable no-undef */
 var handleError = function handleError(message) {
-  console.log('in handle error');
   $('#error').text = message;
-  $('#error').fadeIn(300);
+  $('#error').fadeIn(200);
 };
+
+var redirect = function redirect(response) {
+  $('#error').fadeOut(200);
+  window.location = response.redirect;
+};
+/* Sends Ajax request */
+
 
 var sendAjax = function sendAjax(action, data) {
   $.ajax({
@@ -33,44 +31,17 @@ var sendAjax = function sendAjax(action, data) {
   });
 };
 
-$(document).ready(function () {
-  $('#signupForm').on('submit', function (e) {
-    e.preventDefault(); // $('#error').fadeOut(200);
-
-    if ($('#user').val() == '' || $('#pass').val() == '' || $('#pass2').val() == '') {
-      handleError('All fields are required');
-      return false;
+var sendGenericAjax = function sendGenericAjax(method, action, data, callback) {
+  $.ajax({
+    cache: false,
+    type: method,
+    url: action,
+    data: data,
+    dataType: 'json',
+    success: callback,
+    error: function error(xhr, status, _error2) {
+      var messageObj = JSON.parse(xhr.responseText);
+      handleError(messageObj.error);
     }
-
-    if ($('#pass').val() !== $('#pass2').val()) {
-      handleError('Passwords do not match');
-      return false;
-    }
-
-    sendAjax($('#signupForm').attr('action'), $('#signupForm').serialize());
-    return false;
   });
-  $('#loginForm').on('submit', function (e) {
-    e.preventDefault();
-
-    if ($('#user').val() == '' || $('#pass').val() == '') {
-      handleError('Username or password is empty');
-      return false;
-    }
-
-    sendAjax($('#loginForm').attr('action'), $('#loginForm').serialize());
-    return false;
-  });
-  $('#mealForm').on('submit', function (e) {
-    e.preventDefault();
-    console.log("test".concat($('#reactionLevel').val()));
-
-    if ($('#mealName').val() == '' || $('#mealIngredients').val() == '') {
-      handleError('All fields are required');
-      return false;
-    }
-
-    sendAjax($('#mealForm').attr('action'), $('#mealForm').serialize());
-    return false;
-  });
-});
+};

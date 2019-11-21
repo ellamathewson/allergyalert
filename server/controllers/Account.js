@@ -17,11 +17,6 @@ const errorPage = (req, res) => {
   res.render('error', { csrfToken: req.csrfToken() });
 };
 
-/* Renders signup page */
-const signupPage = (req, res) => {
-  res.render('signup', { csrfToken: req.csrfToken() });
-};
-
 /* Runs logout function  */
 const logout = (req, res) => {
   /* Removes users session */
@@ -150,12 +145,25 @@ const changePassword = (request, response) => {
   );
 };
 
+// requests csrf tokens when it makes requests
+// allows react app to get one-time token each time it needs to send a form
+const getToken = (request, response) => {
+  const req = request;
+  const res = response;
+
+  const csrfJSON = {
+    csrfToken: req.csrfToken(),
+  };
+
+  res.json(csrfJSON);
+};
+
 /* Exports all the functions */
 module.exports.errorPage = errorPage;
 module.exports.loginPage = loginPage;
 module.exports.login = login;
 module.exports.logout = logout;
-module.exports.signupPage = signupPage;
 module.exports.signup = signup;
 module.exports.accountPage = accountPage;
 module.exports.changePassword = changePassword;
+module.exports.getToken = getToken;
