@@ -1,0 +1,142 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Allergy Attention</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="shortcut icon" href="/assets/img/peanutFavicon.png" />
+  <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+  <!-- Bootstrap core CSS -->
+  <link href="assets/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <!-- Bootstrap Template from https://getbootstrap.com/docs/4.0/components/alerts/ -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+</head>
+
+<body>
+  <!-- Navigation -->
+<nav>
+<div class="topnav" id="myTopnav">
+  <a id="title">Allergy Attention</a>
+  <a href="/login">Home</a>
+  <a href="/account">Account</a>
+  <a href="/data" class="active">Data</a>
+  <a href="/logout">Logout</a>
+  <a href="javascript:void(0);" class="icon" onclick="openHamburgerMenu()">
+    <img class="hamburger" src="/assets/img/menu.png">
+  </a>
+</div>
+</nav>
+
+<!-- Page Content -->
+<content class="appPage">
+<!-- Sidebar Widgets Column -->
+    <div class="sidebar">
+      <!-- Categories Widget -->
+        <div class="sort">
+          <h3>Ingredient List:</h3>
+          <div class="pickSort">
+            {{#if displayFood}}
+            {{#each displayFood}}
+              <h2>{{this.level}}</h2>
+              <h4>{{this.ingredients}}</h4>
+            {{/each}}
+            {{/if}}
+        </div>
+    </div>
+  </div>  
+
+    <!-- Sidebar listing out data -->
+    <div class="main">
+      <h2>Data:</h2>
+    <canvas id="myChart"></canvas>
+    <!-- Blog Entries Column -->
+</div>  
+  </content>
+  <!-- /.container -->
+
+  <script>
+    // sets up donut chart using chart.js
+    let ctx = document.getElementById('myChart').getContext('2d');
+
+    // grabs all names from list on side
+    const userData = document.querySelectorAll('h2');
+    
+    // category numbers set at 0
+    let noPain = 0;
+    let mildDis = 0;
+    let painful = 0;
+    let urgent = 0;
+    console.log(userData);
+
+    // adds 1 to each category when listed to display on chart
+    userData.forEach((item) => {
+      console.log(item.innerHTML);
+        switch(item.innerHTML) {
+          case "Urgent Care":
+            urgent += 1;
+            break;
+          case "Painful":
+            painful += 1;
+            break;
+          case "Mild Discomfort":
+            mildDis += 1;
+            break;
+          case "No Pain": 
+            noPain += 1;
+            break;
+          default:
+            break;
+        }
+    });
+
+    // sets up array using data grabbed above
+    let allData = [urgent, painful, mildDis, noPain];
+
+    // sets up chart 
+    let myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+            label: 'Data',
+            data: allData,
+            backgroundColor: ["#cc3300", "#ff9966", "#ffcc00", "#99cc33"],
+            }],
+
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [
+            'Urgent',
+            'Painful',
+            'Mild Discomfort',
+            'No Pain'
+            ]
+        },
+        options: {}
+    });
+  </script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/assets/bundle.js"></script>
+
+    <script>
+      // hamburger menu functionality when screen is smaller
+      function openHamburgerMenu() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+    </script>
+</body>
+
+</html>
