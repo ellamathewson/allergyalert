@@ -45,4 +45,3 @@ const sendGenericAjax = (method, action, data, callback) => {
     },
   });
 };
-

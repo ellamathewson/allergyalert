@@ -1,3 +1,5 @@
+import { domainToASCII } from "url";
+
 /* eslint-disable linebreak-style */
 const handleMeal = (e) => {
   e.preventDefault();
@@ -9,7 +11,7 @@ const handleMeal = (e) => {
     return false;
   }
 
-  sendAjax('POST', $('#mealForm').attr('action'), $('#mealForm').serialize(), () => {
+  sendGenericAjax('POST', $('#mealForm').attr('action'), $('#mealForm').serialize(), () => {
       loadMealsFromServer();
   });
   return false;
@@ -46,7 +48,7 @@ const MealList = function(props) {
 
     // const mealNodes = props.meals.map(function(meal) {
     //     return (
-
+    //         <div key={meal._id}
     //     )
     // })
 }

@@ -8,9 +8,11 @@ const handleLogin = (e) => {
       handleError('Username or password is empty');
       return false;
     }
+
+    console.log($('input[name=_csrf]').val());
   
     /* Otherwise continue loading new page */
-    sendAjax('POST', $('#loginForm').attr('action'), $('#loginForm').serialize(), redirect);
+    sendGenericAjax('POST', $('#loginForm').attr('action'), $('#loginForm').serialize(), redirect);
   
     return false;
   };
@@ -32,7 +34,7 @@ const handleLogin = (e) => {
     }
   
     /* Otherwise continue loading new page */
-    sendAjax('POST', $('#signupForm').attr('action'), $('#signupForm').serialize(), redirect);
+    sendGenericAjax('POST', $('#signupForm').attr('action'), $('#signupForm').serialize(), redirect);
   
     return false;
   };
@@ -65,6 +67,7 @@ const handleLogin = (e) => {
   };
   
   const createLoginWindow = (csrf) => {
+    console.log(`in window ${csrf}`)
     ReactDOM.render(
       <LoginWindow csrf={csrf} />,
       document.querySelector("#content")
@@ -79,7 +82,7 @@ const handleLogin = (e) => {
   };
   
   const setup = (csrf) => {
-    console.log(csrf);
+    console.log(`setup: ${csrf}`);
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
   

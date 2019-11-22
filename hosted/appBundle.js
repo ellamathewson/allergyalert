@@ -1,5 +1,7 @@
 "use strict";
 
+var _url = require("url");
+
 /* eslint-disable linebreak-style */
 var handleMeal = function handleMeal(e) {
   e.preventDefault();
@@ -10,7 +12,7 @@ var handleMeal = function handleMeal(e) {
     return false;
   }
 
-  sendAjax('POST', $('#mealForm').attr('action'), $('#mealForm').serialize(), function () {
+  sendGenericAjax('POST', $('#mealForm').attr('action'), $('#mealForm').serialize(), function () {
     loadMealsFromServer();
   });
   return false;
@@ -72,6 +74,7 @@ var MealList = function MealList(props) {
     }, "No food added"));
   } // const mealNodes = props.meals.map(function(meal) {
   //     return (
+  //         <div key={meal._id}
   //     )
   // })
 

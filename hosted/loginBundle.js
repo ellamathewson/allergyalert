@@ -10,10 +10,11 @@ var handleLogin = function handleLogin(e) {
     handleError('Username or password is empty');
     return false;
   }
+
+  console.log($('input[name=_csrf]').val());
   /* Otherwise continue loading new page */
 
-
-  sendAjax('POST', $('#loginForm').attr('action'), $('#loginForm').serialize(), redirect);
+  sendGenericAjax('POST', $('#loginForm').attr('action'), $('#loginForm').serialize(), redirect);
   return false;
 };
 
@@ -36,7 +37,7 @@ var handleSignup = function handleSignup(e) {
   /* Otherwise continue loading new page */
 
 
-  sendAjax('POST', $('#signupForm').attr('action'), $('#signupForm').serialize(), redirect);
+  sendGenericAjax('POST', $('#signupForm').attr('action'), $('#signupForm').serialize(), redirect);
   return false;
 };
 
@@ -109,6 +110,7 @@ var SignupWindow = function SignupWindow(props) {
 };
 
 var createLoginWindow = function createLoginWindow(csrf) {
+  console.log("in window ".concat(csrf));
   ReactDOM.render(React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
@@ -121,7 +123,7 @@ var createSignupWindow = function createSignupWindow(csrf) {
 };
 
 var setup = function setup(csrf) {
-  console.log(csrf);
+  console.log("setup: ".concat(csrf));
   var loginButton = document.querySelector("#loginButton");
   var signupButton = document.querySelector("#signupButton");
   signupButton.addEventListener("click", function (e) {
