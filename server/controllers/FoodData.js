@@ -63,6 +63,20 @@ const makePost = (req, res) => {
   return dataPromise;
 };
 
+const getMeals = (request, response) => {
+  const req = request;
+  const res = response;
+
+  return Data.DataModel.findByMeal(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An errpr Occured' });
+    }
+    return res.json({ data: docs });
+  });
+};
+
 module.exports.makerPage = makerPage;
 module.exports.dataPage = dataPage;
 module.exports.makePost = makePost;
+module.exports.getMeals = getMeals;

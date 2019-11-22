@@ -1,6 +1,84 @@
 "use strict";
 
 /* eslint-disable linebreak-style */
+var handleMeal = function handleMeal(e) {
+  e.preventDefault();
+  $('#error').fadeIn(300);
+
+  if ($('#mealName').val() == '' || $('#mealIngredients').val() == '' || $('#reactionLevel').val() == '') {
+    handleError('All fields are required');
+    return false;
+  }
+
+  sendAjax('POST', $('#mealForm').attr('action'), $('#mealForm').serialize(), function () {
+    loadMealsFromServer();
+  });
+  return false;
+};
+
+var MealForm = function MealForm(props) {
+  return React.createElement("form", {
+    id: "mealForm",
+    onSubmit: handleMeal,
+    name: "mealForm",
+    action: "/maker",
+    method: "POST",
+    className: "mainForm"
+  }, React.createElement("input", {
+    "class": "textBox add",
+    id: "mealName",
+    type: "text",
+    name: "name",
+    placeholder: "Meal / Food Name"
+  }), React.createElement("input", {
+    "class": "textBox add",
+    id: "mealIngredients",
+    type: "text",
+    name: "ingredients",
+    placeholder: "List Ingredients w/ commas"
+  }), React.createElement("select", {
+    "class": "selectBox",
+    id: "reactionLevel",
+    name: "level"
+  }, React.createElement("option", {
+    selected: "selected",
+    disabled: "disabled"
+  }, "Rate the reaction:"), React.createElement("option", {
+    value: "Urgent Care"
+  }, "Urgent Care"), React.createElement("option", {
+    value: "Painful"
+  }, "Painful"), React.createElement("option", {
+    value: "Mild Discomfort"
+  }, "Mild Discomfort"), React.createElement("option", {
+    value: "No Pain"
+  }, "No Pain")), React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: {
+      csrfToken: csrfToken
+    }
+  }), React.createElement("button", {
+    "class": "formSubmit",
+    type: "submit"
+  }, "Submit"));
+};
+
+var MealList = function MealList(props) {
+  if (props.meals.length === 0) {
+    return React.createElement("section", {
+      id: "meals"
+    }, React.createElement("h3", {
+      "class": "noData"
+    }, "No food added"));
+  } // const mealNodes = props.meals.map(function(meal) {
+  //     return (
+  //     )
+  // })
+
+};
+/* eslint-disable linebreak-style */
+
+
 var handleError = function handleError(message) {
   $('#error').text = message;
   $('#error').fadeIn(200);

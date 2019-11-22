@@ -79,7 +79,7 @@ const handleLogin = (e) => {
   };
   
   const setup = (csrf) => {
-    console.log('setup');
+    console.log(csrf);
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
   
@@ -100,7 +100,7 @@ const handleLogin = (e) => {
   
   const getToken = () => {
     sendGenericAjax('GET', '/getToken', null, (result) => {
-        setup(result.csrfToken);
+      setup(result.csrfToken);
     });
   };
   
