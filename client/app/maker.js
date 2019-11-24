@@ -36,13 +36,17 @@ const MealForm = (props) => {
 };
 
 const MealList = function(props) {
-    if(props.meals.length === 0) {
+    console.log(props.data.length === 0);
+    if(props.data.length === 0) {
         return (
-          <h3 class="noData">No food added</h3>
+          <div className="mealList">
+              <h3 className="empty">No Meals Yet</h3>
+          </div>
         );
     }
 
-    const mealNodes = props.meals.map(function(meal) {
+    const mealNodes = props.data.map(function(meal) {
+        console.log(props.data);
         return (
         <div class="meal">
           <div class="card mb-4" id="mealCard" onclick="showData()">
@@ -68,8 +72,9 @@ const MealList = function(props) {
 
 const loadMealsFromServer = () => {
     sendGenericAjax('GET', '/getMeals', null, (data) => {
+        console.log(data.data);
         ReactDOM.render(
-            <MealList meals={data.meals} />, document.querySelector("#meals")
+            <MealList meals={data.data} />, document.querySelector("#meals")
         );
     });
 };
@@ -80,7 +85,7 @@ const setup = function(csrf) {
     );
 
     ReactDOM.render(
-        <MealList meals={[]} />, document.querySelector("#meals")
+        <MealList data={[]} />, document.querySelector("#meals")
     );
 
     loadMealsFromServer();
