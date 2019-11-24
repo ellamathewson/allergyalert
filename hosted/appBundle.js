@@ -62,9 +62,9 @@ var MealForm = function MealForm(props) {
 };
 
 var MealList = function MealList(props) {
-  console.log(props.data.length === 0);
+  console.log(props.meals.length === 0);
 
-  if (props.data.length === 0) {
+  if (props.meals.length === 0) {
     return React.createElement("div", {
       className: "mealList"
     }, React.createElement("h3", {
@@ -72,8 +72,8 @@ var MealList = function MealList(props) {
     }, "No Meals Yet"));
   }
 
-  var mealNodes = props.data.map(function (meal) {
-    console.log(props.data);
+  var mealNodes = props.meals.map(function (meal) {
+    console.log(props.meals);
     return React.createElement("div", {
       "class": "meal"
     }, React.createElement("div", {
@@ -101,9 +101,9 @@ var MealList = function MealList(props) {
 
 var loadMealsFromServer = function loadMealsFromServer() {
   sendGenericAjax('GET', '/getMeals', null, function (data) {
-    console.log(data.data);
+    console.log(data.meals);
     ReactDOM.render(React.createElement(MealList, {
-      meals: data.data
+      meals: data.meals
     }), document.querySelector("#meals"));
   });
 };
@@ -113,7 +113,7 @@ var setup = function setup(csrf) {
     csrf: csrf
   }), document.querySelector("#addFood"));
   ReactDOM.render(React.createElement(MealList, {
-    data: []
+    meals: []
   }), document.querySelector("#meals"));
   loadMealsFromServer();
 };

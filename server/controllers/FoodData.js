@@ -72,7 +72,8 @@ const getMeals = (request, response) => {
       console.log(err);
       return res.status(400).json({ error: 'An errpr Occured' });
     }
-    return res.json({ data: docs });
+    console.log(docs);
+    return res.json({ meals: docs });
   });
 };
 
