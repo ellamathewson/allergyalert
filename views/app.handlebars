@@ -42,21 +42,7 @@
     <div class="sidebar">
        <div class="addForm">
        <h3>Add Food</h3>
-         <div>
-          <form id="mealForm" name="mealForm" action="/maker" method="POST" class="mealForm">
-            <input class="textBox add" id="mealName" type="text" name="name" placeholder="Meal / Food Name" />
-            <input class="textBox add" id="mealIngredients" type="text" name="ingredients" placeholder="List Ingredients w/ commas" />
-            <select class="selectBox" id="reactionLevel" name="level">
-              <option selected="selected" disabled="disabled">Rate the reaction:</option>
-              <option value="Urgent Care">Urgent Care</option>
-              <option value="Painful">Painful</option>
-              <option value="Mild Discomfort">Mild Discomfort</option>
-              <option value="No Pain">No Pain</option>
-            </select>
-            <input type="hidden" name="_csrf" value={{csrfToken}} />
-            <button class="formSubmit" type="submit">Submit</button>
-          </form>
-        </div>
+         <div id="addFood"></div>
       </div>
 
       <!-- Search Widget -->
@@ -79,24 +65,6 @@
       </div>
       
       <section id="meals">
-        <div class="meal">
-          {{#if foodData}}
-          {{#each foodData}}
-        <div class="card mb-4" id="mealCard" onclick="showData()">
-          <div class="card-body">
-            <h2 class="card-title">{{this.name}}</h2>
-            <p class="card-text">{{this.ingredients}}</p>
-            <p class="card-text">Reaction: {{this.level}}</p>
-          </div>
-          <div class="card-footer text-muted" id="foodFooter">
-            {{this.date}}
-          </div>
-        </div>
-          {{/each}}
-          {{else}}
-          <h3 class="noData">No food added</h3>          
-        {{/if}}
-        </div>
       </section>
   </div>
 </div>  

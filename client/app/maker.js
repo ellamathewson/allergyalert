@@ -1,5 +1,3 @@
-import { domainToASCII } from "url";
-
 /* eslint-disable linebreak-style */
 const handleMeal = (e) => {
   e.preventDefault();
@@ -19,7 +17,7 @@ const handleMeal = (e) => {
 
 const MealForm = (props) => {
     return (
-        <form id="mealForm" onSubmit={handleMeal}
+    <form id="mealForm" onSubmit={handleMeal}
         name="mealForm" action="/maker"
         method="POST" className="mainForm">
         <input class="textBox add" id="mealName" type="text" name="name" placeholder="Meal / Food Name" />
@@ -31,24 +29,69 @@ const MealForm = (props) => {
             <option value="Mild Discomfort">Mild Discomfort</option>
             <option value="No Pain">No Pain</option>
         </select>
-        <input type="hidden" name="_csrf" value={{csrfToken}} />
+        <input type="hidden" name="_csrf" value={props.csrfToken} />
         <button class="formSubmit" type="submit">Submit</button>
-        </form>
+    </form>
     );
 };
 
 const MealList = function(props) {
     if(props.meals.length === 0) {
         return (
-            <section id="meals">
-                <h3 class="noData">No food added</h3>
-            </section>
+          <h3 class="noData">No food added</h3>
         );
     }
 
-    // const mealNodes = props.meals.map(function(meal) {
-    //     return (
-    //         <div key={meal._id}
-    //     )
-    // })
-}
+    const mealNodes = props.meals.map(function(meal) {
+        return (
+        <div class="meal">
+          <div class="card mb-4" id="mealCard" onclick="showData()">
+            <div class="card-body" key={meal._id}>
+              <h2 class="card-title">{meal.name}</h2>
+              <p class="card-text">{meal.ingredients}</p>
+              <p class="card-text">Reaction: {meal.level}</p>
+            </div>
+            <div class="card-footer text-muted" id="foodFooter">
+              {meal.date}
+            </div>
+          </div>
+         </div>
+        );
+    });
+
+    return (
+        <div className="mealList">
+            {mealNodes}
+        </div>
+    );
+};
+
+const loadMealsFromServer = () => {
+    sendGenericAjax('GET', '/getMeals', null, (data) => {
+        ReactDOM.render(
+            <MealList meals={data.meals} />, document.querySelector("#meals")
+        );
+    });
+};
+
+const setup = function(csrf) {
+    ReactDOM.render(
+        <MealForm csrf={csrf} />, document.querySelector("#addFood")
+    );
+
+    ReactDOM.render(
+        <MealList meals={[]} />, document.querySelector("#meals")
+    );
+
+    loadMealsFromServer();
+};
+
+const getToken = () => {
+    sendGenericAjax('GET', '/getToken', null, (result) => {
+        setup(result.csrfToken);
+    });
+};
+
+$(document).ready(function() {
+    getToken();
+});

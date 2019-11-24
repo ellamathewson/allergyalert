@@ -66,6 +66,18 @@ const handleLogin = (e) => {
     );
   };
   
+  // const NavBar = (props) => {
+  //   return (
+  //   <div class="topnav" id="myTopnav">
+  //     <a id="title">Allergy Attention</a>
+  //     <a href="/login" class="active" id="loginButton">Login</a>
+  //     <a href="/signup" id="signupButton">Signup</a>
+  //     <a href="javascript:void(0);" class="icon" onclick="openHamburgerMenu()">
+  //       <img class="hamburger" src="/assets/img/menu.png"/></a>
+  //   </div>
+  //   )
+  // }
+
   const createLoginWindow = (csrf) => {
     console.log(`in window ${csrf}`)
     ReactDOM.render(
@@ -73,6 +85,13 @@ const handleLogin = (e) => {
       document.querySelector("#content")
     );
   };
+
+  // const createNavBar = () => {
+  //   ReactDOM.render(
+  //     <NavBar />,
+  //     document.querySelector("nav")
+  //   );
+  // };
   
   const createSignupWindow = (csrf) => {
     ReactDOM.render(
@@ -98,6 +117,7 @@ const handleLogin = (e) => {
       return false;
     });
   
+    // createNavBar();
     createLoginWindow(csrf);
   };
   

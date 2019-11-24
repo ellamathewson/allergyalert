@@ -107,14 +107,31 @@ var SignupWindow = function SignupWindow(props) {
     type: "submit",
     value: "Sign Up"
   }));
-};
+}; // const NavBar = (props) => {
+//   return (
+//   <div class="topnav" id="myTopnav">
+//     <a id="title">Allergy Attention</a>
+//     <a href="/login" class="active" id="loginButton">Login</a>
+//     <a href="/signup" id="signupButton">Signup</a>
+//     <a href="javascript:void(0);" class="icon" onclick="openHamburgerMenu()">
+//       <img class="hamburger" src="/assets/img/menu.png"/></a>
+//   </div>
+//   )
+// }
+
 
 var createLoginWindow = function createLoginWindow(csrf) {
   console.log("in window ".concat(csrf));
   ReactDOM.render(React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
-};
+}; // const createNavBar = () => {
+//   ReactDOM.render(
+//     <NavBar />,
+//     document.querySelector("nav")
+//   );
+// };
+
 
 var createSignupWindow = function createSignupWindow(csrf) {
   ReactDOM.render(React.createElement(SignupWindow, {
@@ -135,7 +152,8 @@ var setup = function setup(csrf) {
     e.preventDefault();
     createLoginWindow(csrf);
     return false;
-  });
+  }); // createNavBar();
+
   createLoginWindow(csrf);
 };
 

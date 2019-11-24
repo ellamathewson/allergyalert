@@ -1,7 +1,5 @@
 "use strict";
 
-var _url = require("url");
-
 /* eslint-disable linebreak-style */
 var handleMeal = function handleMeal(e) {
   e.preventDefault();
@@ -56,9 +54,7 @@ var MealForm = function MealForm(props) {
   }, "No Pain")), React.createElement("input", {
     type: "hidden",
     name: "_csrf",
-    value: {
-      csrfToken: csrfToken
-    }
+    value: props.csrfToken
   }), React.createElement("button", {
     "class": "formSubmit",
     type: "submit"
@@ -67,20 +63,65 @@ var MealForm = function MealForm(props) {
 
 var MealList = function MealList(props) {
   if (props.meals.length === 0) {
-    return React.createElement("section", {
-      id: "meals"
-    }, React.createElement("h3", {
+    return React.createElement("h3", {
       "class": "noData"
-    }, "No food added"));
-  } // const mealNodes = props.meals.map(function(meal) {
-  //     return (
-  //         <div key={meal._id}
-  //     )
-  // })
+    }, "No food added");
+  }
 
+  var mealNodes = props.meals.map(function (meal) {
+    return React.createElement("div", {
+      "class": "meal"
+    }, React.createElement("div", {
+      "class": "card mb-4",
+      id: "mealCard",
+      onclick: "showData()"
+    }, React.createElement("div", {
+      "class": "card-body",
+      key: meal._id
+    }, React.createElement("h2", {
+      "class": "card-title"
+    }, meal.name), React.createElement("p", {
+      "class": "card-text"
+    }, meal.ingredients), React.createElement("p", {
+      "class": "card-text"
+    }, "Reaction: ", meal.level)), React.createElement("div", {
+      "class": "card-footer text-muted",
+      id: "foodFooter"
+    }, meal.date)));
+  });
+  return React.createElement("div", {
+    className: "mealList"
+  }, mealNodes);
 };
-/* eslint-disable linebreak-style */
 
+var loadMealsFromServer = function loadMealsFromServer() {
+  sendGenericAjax('GET', '/getMeals', null, function (data) {
+    ReactDOM.render(React.createElement(MealList, {
+      meals: data.meals
+    }), document.querySelector("#meals"));
+  });
+};
+
+var setup = function setup(csrf) {
+  ReactDOM.render(React.createElement(MealForm, {
+    csrf: csrf
+  }), document.querySelector("#addFood"));
+  ReactDOM.render(React.createElement(MealList, {
+    meals: []
+  }), document.querySelector("#meals"));
+  loadMealsFromServer();
+};
+
+var getToken = function getToken() {
+  sendGenericAjax('GET', '/getToken', null, function (result) {
+    setup(result.csrfToken);
+  });
+};
+
+$(document).ready(function () {
+  getToken();
+});
+/* eslint-disable linebreak-style */
 
 var handleError = function handleError(message) {
   $('#error').text = message;
