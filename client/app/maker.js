@@ -36,7 +36,6 @@ const MealForm = (props) => {
 };
 
 const MealList = function(props) {
-    console.log(props.meals.length === 0);
     if(props.meals.length === 0) {
         return (
           <div className="mealList">
@@ -46,7 +45,6 @@ const MealList = function(props) {
     }
 
     const mealNodes = props.meals.map(function(meal) {
-        console.log(props.meals);
         return (
         <div className="meal">
           <div className="card mb-4" id="mealCard" onclick="showData()">
@@ -72,7 +70,6 @@ const MealList = function(props) {
 
 const loadMealsFromServer = () => {
     sendGenericAjax('GET', '/getMeals', null, (data) => {
-        console.log(data.meals);
         ReactDOM.render(
             <MealList meals={data.meals} />, document.querySelector("#meals")
         );

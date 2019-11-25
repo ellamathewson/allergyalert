@@ -121,7 +121,6 @@ var SignupWindow = function SignupWindow(props) {
 
 
 var createLoginWindow = function createLoginWindow(csrf) {
-  console.log("in window ".concat(csrf));
   ReactDOM.render(React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
@@ -140,7 +139,6 @@ var createSignupWindow = function createSignupWindow(csrf) {
 };
 
 var setup = function setup(csrf) {
-  console.log("setup: ".concat(csrf));
   var loginButton = document.querySelector("#loginButton");
   var signupButton = document.querySelector("#signupButton");
   signupButton.addEventListener("click", function (e) {
@@ -165,7 +163,6 @@ var getToken = function getToken() {
 
 $(document).ready(function () {
   getToken();
-  console.log("document");
 });
 /* eslint-disable linebreak-style */
 

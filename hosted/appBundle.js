@@ -63,8 +63,6 @@ var MealForm = function MealForm(props) {
 };
 
 var MealList = function MealList(props) {
-  console.log(props.meals.length === 0);
-
   if (props.meals.length === 0) {
     return React.createElement("div", {
       className: "mealList"
@@ -74,7 +72,6 @@ var MealList = function MealList(props) {
   }
 
   var mealNodes = props.meals.map(function (meal) {
-    console.log(props.meals);
     return React.createElement("div", {
       className: "meal"
     }, React.createElement("div", {
@@ -102,7 +99,6 @@ var MealList = function MealList(props) {
 
 var loadMealsFromServer = function loadMealsFromServer() {
   sendGenericAjax('GET', '/getMeals', null, function (data) {
-    console.log(data.meals);
     ReactDOM.render(React.createElement(MealList, {
       meals: data.meals
     }), document.querySelector("#meals"));

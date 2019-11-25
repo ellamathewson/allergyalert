@@ -79,7 +79,6 @@ const handleLogin = (e) => {
   // }
 
   const createLoginWindow = (csrf) => {
-    console.log(`in window ${csrf}`)
     ReactDOM.render(
       <LoginWindow csrf={csrf} />,
       document.querySelector("#content")
@@ -101,7 +100,6 @@ const handleLogin = (e) => {
   };
   
   const setup = (csrf) => {
-    console.log(`setup: ${csrf}`);
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
   
@@ -129,5 +127,4 @@ const handleLogin = (e) => {
   
   $(document).ready(function() {
     getToken();
-    console.log("document");
   });
