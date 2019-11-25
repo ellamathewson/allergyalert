@@ -7,6 +7,7 @@ const Data = models.Data;
 
 /* Renders app page */
 const makerPage = (req, res) => {
+  console.log('in makerPage function');
   Data.DataModel.findByMeal(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -15,6 +16,7 @@ const makerPage = (req, res) => {
     return res.render('app', { csrfToken: req.csrfToken(), foodData: docs });
   });
 };
+
 
 /* Renders data page */
 const dataPage = (req, res) => {
@@ -32,6 +34,7 @@ const dataPage = (req, res) => {
 
 /* Adding meal to database functionality */
 const makePost = (req, res) => {
+  console.log('in makePost function');
   if (!req.body.name || !req.body.ingredients) {
     return res.status(400).json({ error: 'All fields are required' });
   }

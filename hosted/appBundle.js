@@ -54,10 +54,11 @@ var MealForm = function MealForm(props) {
   }, "No Pain")), React.createElement("input", {
     type: "hidden",
     name: "_csrf",
-    value: props.csrfToken
+    value: props.csrf
   }), React.createElement("button", {
     "class": "formSubmit",
-    type: "submit"
+    type: "submit",
+    id: "addButton"
   }, "Submit"));
 };
 

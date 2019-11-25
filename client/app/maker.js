@@ -29,8 +29,8 @@ const MealForm = (props) => {
             <option value="Mild Discomfort">Mild Discomfort</option>
             <option value="No Pain">No Pain</option>
         </select>
-        <input type="hidden" name="_csrf" value={props.csrfToken} />
-        <button class="formSubmit" type="submit">Submit</button>
+        <input type="hidden" name="_csrf" value={props.csrf} />
+        <button class="formSubmit" type="submit" id="addButton">Submit</button>
     </form>
     );
 };
