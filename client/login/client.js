@@ -43,11 +43,11 @@ const handleLogin = (e) => {
       return (
       <form id="loginForm" name="loginForm" 
           onSubmit={handleLogin} action="/login" 
-          method="POST" class="mainForm">
-          <input class="textBox" id="user" type="text" name="username" placeholder="Username" />
-          <input class="textBox" id="pass" type="password" name="pass" placeholder="Password" />
+          method="POST" className="mainForm">
+          <input className="textBox" id="user" type="text" name="username" placeholder="Username" />
+          <input className="textBox" id="pass" type="password" name="pass" placeholder="Password" />
           <input type="hidden" name="_csrf" value={props.csrf} />
-          <button class="formSubmit" type="submit" id="signinButton">Sign In </button>
+          <button className="formSubmit" type="submit" id="signinButton">Sign In </button>
       </form>
       );
   };
@@ -56,12 +56,12 @@ const handleLogin = (e) => {
     return (
       <form id="signupForm" name="signupForm" 
       onSubmit={handleSignup} action="/signup" 
-      method="POST" class="mainForm">
-        <input class="textBox" id="user" type="text" name="username" placeholder="Username"/>
-        <input class="textBox" id="pass" type="password" name="pass" placeholder="Password"/>
-        <input class="textBox" id="pass2" type="password" name="pass2" placeholder="Retype password"/>
+      method="POST" className="mainForm">
+        <input className="textBox" id="user" type="text" name="username" placeholder="Username"/>
+        <input className="textBox" id="pass" type="password" name="pass" placeholder="Password"/>
+        <input className="textBox" id="pass2" type="password" name="pass2" placeholder="Retype password"/>
         <input type="hidden" name="_csrf" value={props.csrf} />
-        <input class="formSubmit" type="submit" value="Sign Up" />
+        <input className="formSubmit" type="submit" value="Sign Up" />
     </form>
     );
   };

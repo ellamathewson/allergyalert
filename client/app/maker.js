@@ -20,9 +20,9 @@ const MealForm = (props) => {
     <form id="mealForm" onSubmit={handleMeal}
         name="mealForm" action="/maker"
         method="POST" className="mainForm">
-        <input class="textBox add" id="mealName" type="text" name="name" placeholder="Meal / Food Name" />
-        <input class="textBox add" id="mealIngredients" type="text" name="ingredients" placeholder="List Ingredients w/ commas" />
-        <select class="selectBox" id="reactionLevel" name="level">
+        <input className="textBox add" id="mealName" type="text" name="name" placeholder="Meal / Food Name" />
+        <input className="textBox add" id="mealIngredients" type="text" name="ingredients" placeholder="List Ingredients w/ commas" />
+        <select className="selectBox" id="reactionLevel" name="level">
             <option selected="selected" disabled="disabled">Rate the reaction:</option>
             <option value="Urgent Care">Urgent Care</option>
             <option value="Painful">Painful</option>
@@ -30,7 +30,7 @@ const MealForm = (props) => {
             <option value="No Pain">No Pain</option>
         </select>
         <input type="hidden" name="_csrf" value={props.csrf} />
-        <button class="formSubmit" type="submit" id="addButton">Submit</button>
+        <button className="formSubmit" type="submit" id="addButton">Submit</button>
     </form>
     );
 };
@@ -48,14 +48,14 @@ const MealList = function(props) {
     const mealNodes = props.meals.map(function(meal) {
         console.log(props.meals);
         return (
-        <div class="meal">
-          <div class="card mb-4" id="mealCard" onclick="showData()">
-            <div class="card-body" key={meal._id}>
-              <h2 class="card-title">{meal.name}</h2>
-              <p class="card-text">{meal.ingredients}</p>
-              <p class="card-text">Reaction: {meal.level}</p>
+        <div className="meal">
+          <div className="card mb-4" id="mealCard" onclick="showData()">
+            <div className="card-body" key={meal._id}>
+              <h2 className="card-title">{meal.name}</h2>
+              <p className="card-text">{meal.ingredients}</p>
+              <p className="card-text">Reaction: {meal.level}</p>
             </div>
-            <div class="card-footer text-muted" id="foodFooter">
+            <div className="card-footer text-muted" id="foodFooter">
               {meal.date}
             </div>
           </div>

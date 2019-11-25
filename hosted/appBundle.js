@@ -25,19 +25,19 @@ var MealForm = function MealForm(props) {
     method: "POST",
     className: "mainForm"
   }, React.createElement("input", {
-    "class": "textBox add",
+    className: "textBox add",
     id: "mealName",
     type: "text",
     name: "name",
     placeholder: "Meal / Food Name"
   }), React.createElement("input", {
-    "class": "textBox add",
+    className: "textBox add",
     id: "mealIngredients",
     type: "text",
     name: "ingredients",
     placeholder: "List Ingredients w/ commas"
   }), React.createElement("select", {
-    "class": "selectBox",
+    className: "selectBox",
     id: "reactionLevel",
     name: "level"
   }, React.createElement("option", {
@@ -56,7 +56,7 @@ var MealForm = function MealForm(props) {
     name: "_csrf",
     value: props.csrf
   }), React.createElement("button", {
-    "class": "formSubmit",
+    className: "formSubmit",
     type: "submit",
     id: "addButton"
   }, "Submit"));
@@ -76,22 +76,22 @@ var MealList = function MealList(props) {
   var mealNodes = props.meals.map(function (meal) {
     console.log(props.meals);
     return React.createElement("div", {
-      "class": "meal"
+      className: "meal"
     }, React.createElement("div", {
-      "class": "card mb-4",
+      className: "card mb-4",
       id: "mealCard",
       onclick: "showData()"
     }, React.createElement("div", {
-      "class": "card-body",
+      className: "card-body",
       key: meal._id
     }, React.createElement("h2", {
-      "class": "card-title"
+      className: "card-title"
     }, meal.name), React.createElement("p", {
-      "class": "card-text"
+      className: "card-text"
     }, meal.ingredients), React.createElement("p", {
-      "class": "card-text"
+      className: "card-text"
     }, "Reaction: ", meal.level)), React.createElement("div", {
-      "class": "card-footer text-muted",
+      className: "card-footer text-muted",
       id: "foodFooter"
     }, meal.date)));
   });
