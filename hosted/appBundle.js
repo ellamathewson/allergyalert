@@ -13,6 +13,10 @@ var handleMeal = function handleMeal(e) {
   sendGenericAjax('POST', $('#mealForm').attr('action'), $('#mealForm').serialize(), function () {
     loadMealsFromServer();
   });
+  console.log($('#mealName').val);
+  $('#mealName').value = '';
+  $('#mealIngredients').value = '';
+  $('#reactionLevel').value = 'start';
   return false;
 };
 
@@ -42,7 +46,8 @@ var MealForm = function MealForm(props) {
     name: "level"
   }, React.createElement("option", {
     selected: "selected",
-    disabled: "disabled"
+    disabled: "disabled",
+    value: "start"
   }, "Rate the reaction:"), React.createElement("option", {
     value: "Urgent Care"
   }, "Urgent Care"), React.createElement("option", {

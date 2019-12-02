@@ -12,6 +12,10 @@ const handleMeal = (e) => {
   sendGenericAjax('POST', $('#mealForm').attr('action'), $('#mealForm').serialize(), () => {
       loadMealsFromServer();
   });
+  console.log($('#mealName').val);
+    $('#mealName').value = '';
+    $('#mealIngredients').value = '';
+    $('#reactionLevel').value = 'start';
   return false;
 };
 
@@ -23,7 +27,7 @@ const MealForm = (props) => {
         <input className="textBox add" id="mealName" type="text" name="name" placeholder="Meal / Food Name" />
         <input className="textBox add" id="mealIngredients" type="text" name="ingredients" placeholder="List Ingredients w/ commas" />
         <select className="selectBox" id="reactionLevel" name="level">
-            <option selected="selected" disabled="disabled">Rate the reaction:</option>
+            <option selected="selected" disabled="disabled" value="start">Rate the reaction:</option>
             <option value="Urgent Care">Urgent Care</option>
             <option value="Painful">Painful</option>
             <option value="Mild Discomfort">Mild Discomfort</option>
