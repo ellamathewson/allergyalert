@@ -16,11 +16,15 @@ var handleMeal = function handleMeal(e) {
   console.log($('#mealName').val);
   $('#mealName').value = '';
   $('#mealIngredients').value = '';
-  $('#reactionLevel').value = 'start';
+  $('#reactionLevel').value = 'start'; // window.render();
+
   return false;
 };
 
 var MealForm = function MealForm(props) {
+  // submit = (e) => {
+  //     let formMealName = 
+  // }
   return React.createElement("form", {
     id: "mealForm",
     onSubmit: handleMeal,
@@ -89,7 +93,8 @@ var MealList = function MealList(props) {
     }, React.createElement("h2", {
       className: "card-title"
     }, meal.name), React.createElement("p", {
-      className: "card-text"
+      className: "card-text",
+      id: "ingred"
     }, meal.ingredients), React.createElement("p", {
       className: "card-text"
     }, "Reaction: ", meal.level)), React.createElement("div", {

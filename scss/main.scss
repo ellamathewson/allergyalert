@@ -159,6 +159,12 @@ a {
     APP PAGE
   
   */
+
+.mealList {
+  display: flex;
+  flex-direction: column-reverse;
+  
+}
 .appPage {
     display: flex;
     flex-direction: row;

@@ -16,10 +16,14 @@ const handleMeal = (e) => {
     $('#mealName').value = '';
     $('#mealIngredients').value = '';
     $('#reactionLevel').value = 'start';
+    // window.render();
   return false;
 };
 
 const MealForm = (props) => {
+    // submit = (e) => {
+    //     let formMealName = 
+    // }
     return (
     <form id="mealForm" onSubmit={handleMeal}
         name="mealForm" action="/maker"
@@ -54,7 +58,7 @@ const MealList = function(props) {
           <div className="card mb-4" id="mealCard" onclick="showData()">
             <div className="card-body" key={meal._id}>
               <h2 className="card-title">{meal.name}</h2>
-              <p className="card-text">{meal.ingredients}</p>
+              <p className="card-text" id="ingred">{meal.ingredients}</p>
               <p className="card-text">Reaction: {meal.level}</p>
             </div>
             <div className="card-footer text-muted" id="foodFooter">

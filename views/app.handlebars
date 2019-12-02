@@ -119,19 +119,32 @@
           let title = card.querySelector("h2").innerHTML;
           title = title.toLowerCase();
 
-          if (title == input) {
-            itemsDisplaying = true;
-            card.style.display = "block";
-            tag.querySelector("h5").innerHTML = input;
-            tag.style.display = "block";
-          //if not, set the display to none
-          } else {
-            card.style.display = "none";
-          }
+          let ingred = card.querySelector("#ingred").innerHTML;
+          ingred = ingred.toLowerCase();
+          ingred = ingred.split(",");
+
+          ingred.forEach(item => {
+            item = item.trim();
+              if (title == input) {
+              itemsDisplaying = true;
+              card.style.display = "block";
+              tag.querySelector("h5").innerHTML = input;
+              tag.style.display = "block";
+            //if not, set the display to none
+            } else if (item == input) {
+                itemsDisplaying = true;
+                console.log(card);
+                card.style.display = "block";
+                tag.querySelector("h5").innerHTML = input;
+                tag.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
         });
 
         if (itemsDisplaying == false) {
-            console.log("nothing on scren");
+            console.log("nothing on screen");
             $('#searchEmpty').modal('show');
           }
     } 
