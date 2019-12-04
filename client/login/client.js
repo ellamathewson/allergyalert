@@ -60,6 +60,14 @@ const handleLogin = (e) => {
         <input className="textBox" id="user" type="text" name="username" placeholder="Username"/>
         <input className="textBox" id="pass" type="password" name="pass" placeholder="Password"/>
         <input className="textBox" id="pass2" type="password" name="pass2" placeholder="Retype password"/>
+         <div id="subDiv">
+          
+         <label class="checkbox-label"> Sign me up
+            <span className="checkmark">
+            <input id="subscribe" type="checkbox" name="subscribe" />
+            </span>
+        </label> 
+      </div> 
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="formSubmit" type="submit" value="Sign Up" />
     </form>

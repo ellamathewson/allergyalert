@@ -241,3 +241,21 @@ li:hover {
 */
 #loginForm, #signupForm {
   margin-top: 10vh; }
+
+/*
+
+  Signup Page
+
+*/
+.checkmark {
+  height: 25px;
+  width: 25px;
+  border-radius: 50px; }
+
+#subscribe {
+  background-color: green; }
+
+#subDiv {
+  width: 60%;
+  margin: 0 20%;
+  padding: 1em; }
