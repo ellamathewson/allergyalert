@@ -58,6 +58,7 @@ const signup = (request, response) => {
   req.body.username = `${req.body.username}`;
   req.body.pass = `${req.body.pass}`;
   req.body.pass2 = `${req.body.pass2}`;
+  req.body.subscribe = `${req.body.subscribe}`;
 
   // checks that all fields are filled out
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
@@ -69,12 +70,17 @@ const signup = (request, response) => {
     return res.status(400).json({ error: 'Passwords do not match' });
   }
 
+  // if ((req.body.subscribe).checked === true) {
+
+  // }
+
   // creates account
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
     const accountData = {
       username: req.body.username,
       salt,
       password: hash,
+      subscribe: req.body.subscribe,
     };
 
     const newAccount = new Account.AccountModel(accountData);

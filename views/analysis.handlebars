@@ -29,7 +29,6 @@
   <a href="/login">Home</a>
   <a href="/account">Account</a>
   <a href="/data" class="active">Data</a>
-  <a href="/allergy">Analysis</a>
   <a href="/logout">Logout</a>
   <a href="javascript:void(0);" class="icon" onclick="openHamburgerMenu()">
     <img class="hamburger" src="/assets/img/menu.png">
@@ -58,73 +57,12 @@
     <!-- Sidebar listing out data -->
     <div class="main">
       <h2>Data:</h2>
-    <canvas id="myChart"></canvas>
     <br><br>
     <canvas id="barChart"></canvas>
     <!-- Blog Entries Column -->
 </div>  
   </content>
   <!-- /.container -->
-
-  <script>
-    // sets up donut chart using chart.js
-    let ctx = document.getElementById('myChart').getContext('2d');
-
-    // grabs all names from list on side
-    const userData = document.querySelectorAll('h2');
-    
-    // category numbers set at 0
-    let noPain = 0;
-    let mildDis = 0;
-    let painful = 0;
-    let urgent = 0;
-    console.log(userData);
-
-    // adds 1 to each category when listed to display on chart
-    userData.forEach((item) => {
-      console.log(item.innerHTML);
-        switch(item.innerHTML) {
-          case "Urgent Care":
-            urgent += 1;
-            break;
-          case "Painful":
-            painful += 1;
-            break;
-          case "Mild Discomfort":
-            mildDis += 1;
-            break;
-          case "No Pain": 
-            noPain += 1;
-            break;
-          default:
-            break;
-        }
-    });
-
-    // sets up array using data grabbed above
-    let allData = [urgent, painful, mildDis, noPain];
-
-    // sets up chart 
-    let myDoughnutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-            label: 'Data',
-            data: allData,
-            backgroundColor: ["#cc3300", "#ff9966", "#ffcc00", "#99cc33"],
-            }],
-
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-            'Urgent',
-            'Painful',
-            'Mild Discomfort',
-            'No Pain'
-            ]
-        },
-        options: {}
-    });
-  </script>
 
   <script>
     let ctx2 = document.getElementById('barChart').getContext('2d');

@@ -25,6 +25,7 @@ const router = (app) => {
   app.post('/changePassword', mid.requiresLogin, controllers.Account.changePassword);
 
   app.get('/data', mid.requiresLogin, controllers.Data.dataPage);
+  app.get('/allergy', mid.requiresLogin, controllers.Data.allergyPage);
   app.get('/error', mid.requiresLogin, controllers.Account.errorPage);
 
 
