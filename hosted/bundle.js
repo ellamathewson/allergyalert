@@ -1,4 +1,3 @@
-"use strict";
 
 /* eslint-disable linebreak-style */
 
@@ -11,14 +10,14 @@
 /* eslint-disable no-undef */
 
 /* Shows error div on page when needed */
-var handleError = function handleError(message) {
+const handleError = function handleError(message) {
   $('#error').text = message;
   $('#error').fadeIn(200);
 };
 /* Sends Ajax request */
 
 
-var sendAjax = function sendAjax(action, data) {
+const sendAjax = function sendAjax(action, data) {
   $.ajax({
     cache: false,
     type: 'POST',
@@ -30,17 +29,32 @@ var sendAjax = function sendAjax(action, data) {
       window.location = result.redirect;
     },
     error: function error(xhr, status, _error) {
-      var messageObj = JSON.parse(xhr.responseText);
+      const messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
-    }
+    },
+  });
+};
+
+const sendAjaxWithCallback = function sendAjaxWithCallback(action, data, callback) {
+  $.ajax({
+    cache: false,
+    type: 'POST',
+    url: action,
+    data: data,
+    dataType: 'json',
+    success: callback,
+    error: function error(xhr, status, _error) {
+      const messageObj = JSON.parse(xhr.responseText);
+      handleError(messageObj.error);
+    },
   });
 };
 /* On page ready */
 
 
-$(document).ready(function () {
+$(document).ready(() => {
   /* When signup form is submitted */
-  $('#signupForm').on('submit', function (e) {
+  $('#signupForm').on('submit', (e) => {
     /* Stops page from redirecting */
     e.preventDefault();
     $('#error').fadeOut(200);
@@ -65,7 +79,7 @@ $(document).ready(function () {
   });
   /* Login page */
 
-  $('#loginForm').on('submit', function (e) {
+  $('#loginForm').on('submit', (e) => {
     e.preventDefault();
     /* If either of the fields are blank show error */
 
@@ -81,7 +95,7 @@ $(document).ready(function () {
   });
   /* Adding new data to database (meals) */
 
-  $('#mealForm').on('submit', function (e) {
+  $('#mealForm').on('submit', (e) => {
     e.preventDefault();
     /* if any of the fields are blank show error */
 
@@ -97,7 +111,7 @@ $(document).ready(function () {
   });
   /* Adding new data to database (meals) */
 
-  $('#changePassword').on('submit', function (e) {
+  $('#changePassword').on('submit', (e) => {
     e.preventDefault();
     /* if any of the fields are blank show error */
 
@@ -108,8 +122,23 @@ $(document).ready(function () {
 
     $('#error').fadeIn(200);
     /* Otherwise continue loading new page */
-    // sendAjax($('#changePassword').attr('action'), $('#changePassword').serialize());
+    sendAjaxWithCallback($('#changePassword').attr('action'), $('#changePassword').serialize(), (data) => {
+      console.log(data);
+    });
 
     return false;
   });
+});
+
+$('#changeSubscription').on('submit', (e) => {
+  e.preventDefault();
+  /* if any of the fields are blank show error */
+
+  $('#error').fadeIn(200);
+  /* Otherwise continue loading new page */
+  sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), (data) => {
+    console.log('success');
+  });
+
+  return false;
 });

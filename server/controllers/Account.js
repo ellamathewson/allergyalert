@@ -151,6 +151,19 @@ const changePassword = (request, response) => {
   );
 };
 
+const changeSubscription = (request, response) => {
+  const req = request;
+  const res = response;
+
+  Account.AccountModel.updateOne({ username: req.session.account.username }, { subscribed: true },
+    (err) => {
+      if (err) {
+        return res.status(400).json({ err });
+      }
+      return res.send();
+    });
+};
+
 // requests csrf tokens when it makes requests
 // allows react app to get one-time token each time it needs to send a form
 const getToken = (request, response) => {
@@ -173,3 +186,4 @@ module.exports.signup = signup;
 module.exports.accountPage = accountPage;
 module.exports.changePassword = changePassword;
 module.exports.getToken = getToken;
+module.exports.changeSubscription = changeSubscription;

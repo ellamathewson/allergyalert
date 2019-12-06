@@ -104,7 +104,7 @@ var SignupWindow = function SignupWindow(props) {
     type: "checkbox",
     "class": "hidden",
     tabindex: "0"
-  }), React.createElement("label", null, "Make my profile visible")), React.createElement("input", {
+  }), React.createElement("label", null, "Subscribe")), React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
