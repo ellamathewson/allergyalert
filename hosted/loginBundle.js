@@ -99,16 +99,12 @@ var SignupWindow = function SignupWindow(props) {
     name: "pass2",
     placeholder: "Retype password"
   }), React.createElement("div", {
-    id: "subDiv"
-  }, React.createElement("label", {
-    "class": "checkbox-label"
-  }, " Sign me up", React.createElement("span", {
-    className: "checkmark"
+    "class": "ui checkbox"
   }, React.createElement("input", {
-    id: "subscribe",
     type: "checkbox",
-    name: "subscribe"
-  })))), React.createElement("input", {
+    "class": "hidden",
+    tabindex: "0"
+  }), React.createElement("label", null, "Make my profile visible")), React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf

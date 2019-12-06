@@ -247,15 +247,13 @@ li:hover {
   Signup Page
 
 */
-.checkmark {
+.checkbox {
   height: 25px;
   width: 25px;
-  border-radius: 50px; }
-
-#subscribe {
-  background-color: green; }
-
-#subDiv {
+  border-radius: 50px;
   width: 60%;
   margin: 0 20%;
   padding: 1em; }
+
+#subscribe {
+  background-color: green; }

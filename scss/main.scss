@@ -302,20 +302,17 @@ a {
   Signup Page
 
 */
-.checkmark {
+.checkbox {
   height: 25px;
   width: 25px;
   // background-color: black;
   // border: 3px solid pink;
   border-radius: 50px;
+  width: 60%;
+  margin: 0 20%;
+  padding: 1em;
 }
 
 #subscribe {
   background-color: green;
-}
-
-#subDiv {
-  width: 60%;
-  margin: 0 20%;
-  padding: 1em;
 }
