@@ -57,7 +57,7 @@
 
     <!-- Sidebar listing out data -->
     <div class="main">
-      <h2>Data:</h2>
+      <h2>Analysis:</h2>
     <br><br>
     <canvas id="barChart"></canvas>
     <!-- Blog Entries Column -->
@@ -66,6 +66,23 @@
   <!-- /.container -->
 
   <script>
+    const userData = document.querySelectorAll('h4');
+    const h4Array = [];
+    const food = [];
+
+    userData.forEach((item) => {
+        h4Array.push(item.innerHTML.split(','));      
+    });
+
+    h4Array.forEach((food) => {
+        //console.log(food);
+        food.forEach((item) => {
+            console.log(item);
+            food.push(item);
+        });
+    });
+    console.log(food);
+
     let ctx2 = document.getElementById('barChart').getContext('2d');
 
     var myBarChart = new Chart(ctx2, {
@@ -97,7 +114,7 @@
   </script>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="/assets/bundle.js"></script>
+    <script src="/assets/appBundle.js"></script>
 
     <script>
       // hamburger menu functionality when screen is smaller

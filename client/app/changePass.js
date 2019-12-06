@@ -9,32 +9,6 @@
 
 /* eslint-disable no-undef */
 
-/* Shows error div on page when needed */
-const handleError = function handleError(message) {
-  $('#error').text = message;
-  $('#error').fadeIn(200);
-};
-/* Sends Ajax request */
-
-
-const sendAjax = function sendAjax(action, data) {
-  $.ajax({
-    cache: false,
-    type: 'POST',
-    url: action,
-    data: data,
-    dataType: 'json',
-    success: function success(result, status, xhr) {
-      $('#error').fadeOut(200);
-      window.location = result.redirect;
-    },
-    error: function error(xhr, status, _error) {
-      const messageObj = JSON.parse(xhr.responseText);
-      handleError(messageObj.error);
-    },
-  });
-};
-
 const sendAjaxWithCallback = function sendAjaxWithCallback(action, data, callback) {
   $.ajax({
     cache: false,
