@@ -21,8 +21,8 @@
   <nav>
     <div class="topnav" id="myTopnav">
       <a id="title">Allergy Attention</a>
-      <a href="/login" class="active" id="loginButton">Login</a>
-      <a href="/signup" id="signupButton">Signup</a>
+      <a href="/login" class="active" id="loginButton" onClick="displayLogin()">Login</a>
+      <a href="/signup" id="signupButton" onClick="displaySignup()">Signup</a>
       <a href="javascript:void(0);" class="icon" onclick="openHamburgerMenu()">
         <img class="hamburger" src="/assets/img/menu.png">
       </a>
@@ -43,7 +43,30 @@
         x.className = "topnav";
       }
     }
+
+    function displayLogin() {
+      console.log('display login');
+      if($('#signupButton').hasClass('active')) {
+        $('#signupButton').removeClass('active');
+        $('#loginButton').addClass('active');
+      }
+    }
+
+    function displaySignup() {
+      console.log('display sugnup');
+      if($('#loginButton').hasClass('active')) {
+        $('#loginButton').removeClass('active');
+        $('#signupButton').addClass('active');
+      }
+    }
+    
+    
   </script>
 
 </body>
 </html>
+
+<!-- 
+   $('#signupForm').removeClass('active');
+        $('#loginForm').addClass('active');
+-->
