@@ -58,9 +58,9 @@
     <!-- Sidebar listing out data -->
     <div class="main">
       <h2>Data:</h2>
+      <br><br>
     <canvas id="myChart"></canvas>
     <br><br>
-    <canvas id="barChart"></canvas>
     <!-- Blog Entries Column -->
 </div>  
   </content>
@@ -124,37 +124,6 @@
         },
         options: {}
     });
-  </script>
-
-  <script>
-    let ctx2 = document.getElementById('barChart').getContext('2d');
-
-    var myBarChart = new Chart(ctx2, {
-      type: 'bar',
-      data: {
-       labels: ["cheese", "noodles", "chocolate"],
-    datasets: [{
-      label: 'Ingredients',
-      data: [12, 19, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderWidth: 1
-    }]
-        },
-      options: {}
-  });
   </script>
 
     <!-- Bootstrap core JavaScript -->
