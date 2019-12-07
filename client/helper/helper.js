@@ -1,7 +1,13 @@
+/* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
 const handleError = (message) => {
   $('#error').text = message;
   $('#error').fadeIn(200);
+};
+
+const handleSuccess = (message) => {
+  $('#success').text = message;
+  $('#success').fadeIn(200);
 };
 
 const redirect = (response) => {
@@ -41,6 +47,21 @@ const sendGenericAjax = (method, action, data, callback) => {
     error: (xhr, status, error) => {
       const messageObj = JSON.parse(xhr.responseText);
 
+      handleError(messageObj.error);
+    },
+  });
+};
+
+const sendAjaxWithCallback = (action, data, callback) => {
+  $.ajax({
+    cache: false,
+    type: 'POST',
+    url: action,
+    data,
+    dataType: 'json',
+    success: callback,
+    error: function error(xhr, status, error) {
+      const messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     },
   });

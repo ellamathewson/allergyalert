@@ -170,11 +170,18 @@ var getToken = function getToken() {
 $(document).ready(function () {
   getToken();
 });
+/* eslint-disable no-undef */
+
 /* eslint-disable linebreak-style */
 
 var handleError = function handleError(message) {
   $('#error').text = message;
   $('#error').fadeIn(200);
+};
+
+var handleSuccess = function handleSuccess(message) {
+  $('#success').text = message;
+  $('#success').fadeIn(200);
 };
 
 var redirect = function redirect(response) {
@@ -211,6 +218,21 @@ var sendGenericAjax = function sendGenericAjax(method, action, data, callback) {
     dataType: 'json',
     success: callback,
     error: function error(xhr, status, _error2) {
+      var messageObj = JSON.parse(xhr.responseText);
+      handleError(messageObj.error);
+    }
+  });
+};
+
+var sendAjaxWithCallback = function sendAjaxWithCallback(action, data, callback) {
+  $.ajax({
+    cache: false,
+    type: 'POST',
+    url: action,
+    data: data,
+    dataType: 'json',
+    success: callback,
+    error: function error(xhr, status, error) {
       var messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     }

@@ -9,101 +9,30 @@
 /* eslint-disable object-shorthand */
 
 /* eslint-disable no-undef */
-var sendAjaxWithCallback = function sendAjaxWithCallback(action, data, callback) {
-  $.ajax({
-    cache: false,
-    type: 'POST',
-    url: action,
-    data: data,
-    dataType: 'json',
-    success: callback,
-    error: function error(xhr, status, _error) {
-      var messageObj = JSON.parse(xhr.responseText);
-      handleError(messageObj.error);
-    }
+var handleChangePass = function handleChangePass(e) {
+  e.preventDefault();
+  $('#error').fadeOut(200);
+
+  if ($('#oldPass').val() == '' || $('#newPass1').val() == '' || $('#newPass2').val() == '') {
+    handleError('All fields are required');
+    return false;
+  }
+
+  if ($('#newPass1').val() !== $('#newPass2').val()) {
+    handleError('Passwords do not match');
+    return false;
+  }
+
+  $('#error').fadeIn(200);
+  /* Otherwise continue loading new page */
+
+  sendAjaxWithCallback($('#changePassword').attr('action'), $('#changePassword').serialize(), function (data) {
+    handleSuccess('Password changed');
   });
+  return false;
 };
-/* On page ready */
 
-
-$(document).ready(function () {
-  /* When signup form is submitted */
-  $('#signupForm').on('submit', function (e) {
-    /* Stops page from redirecting */
-    e.preventDefault();
-    $('#error').fadeOut(200);
-    /* If any input is empty, show error */
-
-    if ($('#user').val() == '' || $('#pass').val() == '' || $('#pass2').val() == '') {
-      handleError('All fields are required');
-      return false;
-    }
-    /* If the passwords do not match, show error */
-
-
-    if ($('#pass').val() !== $('#pass2').val()) {
-      handleError('Passwords do not match');
-      return false;
-    }
-    /* Otherwise continue loading new page */
-
-
-    sendAjax($('#signupForm').attr('action'), $('#signupForm').serialize());
-    return false;
-  });
-  /* Login page */
-
-  $('#loginForm').on('submit', function (e) {
-    e.preventDefault();
-    /* If either of the fields are blank show error */
-
-    if ($('#user').val() == '' || $('#pass').val() == '') {
-      handleError('Username or password is empty');
-      return false;
-    }
-    /* Otherwise continue loading new page */
-
-
-    sendAjax($('#loginForm').attr('action'), $('#loginForm').serialize());
-    return false;
-  });
-  /* Adding new data to database (meals) */
-
-  $('#mealForm').on('submit', function (e) {
-    e.preventDefault();
-    /* if any of the fields are blank show error */
-
-    if ($('#mealName').val() == '' || $('#mealIngredients').val() == '' || $('#reactionLevel').val() == '') {
-      handleError('All fields are required');
-      return false;
-    }
-    /* Otherwise continue loading new page */
-
-
-    sendAjax($('#mealForm').attr('action'), $('#mealForm').serialize());
-    return false;
-  });
-  /* Adding new data to database (meals) */
-
-  $('#changePassword').on('submit', function (e) {
-    e.preventDefault();
-    /* if any of the fields are blank show error */
-
-    if ($('#oldPass').val() == '' || $('#newPass1').val() == '' || $('#newPass2').val() == '') {
-      handleError('All fields are required');
-      return false;
-    }
-
-    $('#error').fadeIn(200);
-    /* Otherwise continue loading new page */
-
-    sendAjaxWithCallback($('#changePassword').attr('action'), $('#changePassword').serialize(), function (data) {
-      console.log(data);
-    });
-    return false;
-  });
-});
-$('#changeSubscription').on('submit', function (e) {
+var handleSubChange = function handleSubChange(e) {
   e.preventDefault();
   /* if any of the fields are blank show error */
 
@@ -111,11 +40,13 @@ $('#changeSubscription').on('submit', function (e) {
   /* Otherwise continue loading new page */
 
   sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), function (data) {
+    handleSuccess('Subscription changed');
     console.log('success');
   });
   return false;
-});
+};
 /* eslint-disable linebreak-style */
+
 
 var handleMeal = function handleMeal(e) {
   e.preventDefault();
@@ -248,15 +179,23 @@ var getToken = function getToken() {
 };
 
 $(document).ready(function () {
+  /* https://stackoverflow.com/questions/21718282/check-if-url-contains-string-with-jquery */
   if (window.location.href.indexOf("maker") > -1) {
     getToken();
   }
 });
+/* eslint-disable no-undef */
+
 /* eslint-disable linebreak-style */
 
 var handleError = function handleError(message) {
   $('#error').text = message;
   $('#error').fadeIn(200);
+};
+
+var handleSuccess = function handleSuccess(message) {
+  $('#success').text = message;
+  $('#success').fadeIn(200);
 };
 
 var redirect = function redirect(response) {
@@ -277,7 +216,7 @@ var sendAjax = function sendAjax(action, data) {
       $('#error').fadeOut(200);
       window.location = result.redirect;
     },
-    error: function error(xhr, status, _error2) {
+    error: function error(xhr, status, _error) {
       var messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     }
@@ -292,7 +231,22 @@ var sendGenericAjax = function sendGenericAjax(method, action, data, callback) {
     data: data,
     dataType: 'json',
     success: callback,
-    error: function error(xhr, status, _error3) {
+    error: function error(xhr, status, _error2) {
+      var messageObj = JSON.parse(xhr.responseText);
+      handleError(messageObj.error);
+    }
+  });
+};
+
+var sendAjaxWithCallback = function sendAjaxWithCallback(action, data, callback) {
+  $.ajax({
+    cache: false,
+    type: 'POST',
+    url: action,
+    data: data,
+    dataType: 'json',
+    success: callback,
+    error: function error(xhr, status, error) {
       var messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     }

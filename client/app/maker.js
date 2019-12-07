@@ -103,6 +103,7 @@ const getToken = () => {
 };
 
 $(document).ready(function() {
+    /* https://stackoverflow.com/questions/21718282/check-if-url-contains-string-with-jquery */
     if(window.location.href.indexOf("maker") > -1) {
         getToken();
     }
