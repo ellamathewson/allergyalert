@@ -120,7 +120,19 @@ const handleChangePass = (e) => {
         <div className="alert alert-success" role="alert" id="success">Success</div>
     </form>
     )
-  }
+  };
+
+  const ChangeSubscribeButton = (props) => {
+      return (
+        <form id="changeSubscription" name="changeSubscription" 
+        action="/changeSubscription" method="POST" 
+        onSubmit={handleSubChange}>
+        <input type="hidden" name="_csrf" value={props.csrf} />
+        <input className="formSubmit" type="submit" value="Subscribe" />
+        <div className="alert alert-danger" role="alert" id="error"> Subscribed Successful </div>
+        </form>
+      )
+  };
   
   const handleSubChange = (e) => {
     e.preventDefault();
@@ -139,6 +151,9 @@ const handleChangePass = (e) => {
 const setupPassChangeForm = function(csrf) {
     ReactDOM.render(
     <ChangePassForm csrf={csrf} />, document.querySelector("#changePassForm")
+    );
+    ReactDOM.render(
+        <ChangeSubscribeButton csrf={csrf} />, document.querySelector("#changeSubscribe")
     );
 };
 

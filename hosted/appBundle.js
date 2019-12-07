@@ -252,6 +252,28 @@ var ChangePassForm = function ChangePassForm(props) {
   }, "Success"));
 };
 
+var ChangeSubscribeButton = function ChangeSubscribeButton(props) {
+  return React.createElement("form", {
+    id: "changeSubscription",
+    name: "changeSubscription",
+    action: "/changeSubscription",
+    method: "POST",
+    onSubmit: handleSubChange
+  }, React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), React.createElement("input", {
+    className: "formSubmit",
+    type: "submit",
+    value: "Subscribe"
+  }), React.createElement("div", {
+    className: "alert alert-danger",
+    role: "alert",
+    id: "error"
+  }, " Subscribed Successful "));
+};
+
 var handleSubChange = function handleSubChange(e) {
   e.preventDefault();
   /* if any of the fields are blank show error */
@@ -270,6 +292,9 @@ var setupPassChangeForm = function setupPassChangeForm(csrf) {
   ReactDOM.render(React.createElement(ChangePassForm, {
     csrf: csrf
   }), document.querySelector("#changePassForm"));
+  ReactDOM.render(React.createElement(ChangeSubscribeButton, {
+    csrf: csrf
+  }), document.querySelector("#changeSubscribe"));
 };
 
 var setup = function setup(csrf) {
