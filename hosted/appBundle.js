@@ -270,7 +270,7 @@ var ChangeSubscribeButton = function ChangeSubscribeButton(props) {
   }), React.createElement("div", {
     className: "alert alert-danger",
     role: "alert",
-    id: "error"
+    id: "subError"
   }, " Subscribed Successful "));
 };
 
@@ -278,7 +278,7 @@ var handleSubChange = function handleSubChange(e) {
   e.preventDefault();
   /* if any of the fields are blank show error */
 
-  $('#error').fadeIn(200);
+  $('#subError').fadeIn(200);
   /* Otherwise continue loading new page */
 
   sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), function (data) {

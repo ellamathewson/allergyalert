@@ -129,16 +129,16 @@ const handleChangePass = (e) => {
         onSubmit={handleSubChange}>
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="formSubmit" type="submit" value="Subscribe" />
-        <div className="alert alert-danger" role="alert" id="error"> Subscribed Successful </div>
+        <div className="alert alert-danger" role="alert" id="subError"> Subscribed Successful </div>
         </form>
       )
   };
-  
+
   const handleSubChange = (e) => {
     e.preventDefault();
     /* if any of the fields are blank show error */
   
-    $('#error').fadeIn(200);
+    $('#subError').fadeIn(200);
     /* Otherwise continue loading new page */
     sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), (data) => {
       handleSuccess('Subscription changed');
