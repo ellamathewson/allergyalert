@@ -257,3 +257,6 @@ li:hover {
 
 #subscribe {
   background-color: green; }
+
+#noData {
+  display: none; }

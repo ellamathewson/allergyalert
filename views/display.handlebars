@@ -22,7 +22,6 @@
 </head>
 
 <body>
-  <!-- Navigation -->
 <nav>
 <div class="topnav" id="myTopnav">
   <a id="title">Allergy Attention</a>
@@ -54,31 +53,37 @@
     </div>
   </div>  
 
-    <!-- Sidebar listing out data -->
-    <div class="main">
-      <br>
-      <h2>About:</h2>
-      <br>
-      <p>Tracking food allergies can be difficult. These charts were made
-        to display data in a way easy to understand. 
-        <br><br>
-        The Data chart tracks the reactions. The Food Breakdown chart tracks 
-        the ingredients you've listed. So comparing them you can see the 
-        majority of the reactions you have and the most common food you eat,
-        thus being able to put together an idea of foods you should avoid.
-        In doing so you can experiment with yourself and find what foods 
-        you should avoid.</p>
-      <br>
-      <h2>Data:</h2>
+  <!-- Sidebar listing out data -->
+  <div class="main">
+    <br>
+    <h3>About:</h3>
+    <br>
+    <p>Tracking food allergies can be difficult. These charts were made
+      to display data in a way easy to understand. 
+      <br><br>
+      The Data chart tracks the reactions. The Food Breakdown chart tracks 
+      the ingredients you've listed. So comparing them you can see the 
+      majority of the reactions you have and the most common food you eat,
+      thus being able to put together an idea of foods you should avoid.
+      In doing so you can experiment with yourself and find what foods 
+      you should avoid.</p>
+    <br>
+    <div id="analysis">
+      <h3>Data:</h3>
       <br><br>
       <canvas id="myChart"></canvas>
       <br><br>
-      <h2>Food Breakdown:</h2>
+      <h3>Food Breakdown:</h3>
       <canvas id="barChart"></canvas>
       <br><br>
+    </div>
+    <div id="noData">
+      <h3>No data added yet</h3>
+    </div>
+    
     <!-- Blog Entries Column -->
-</div>  
-  </content>
+  </div>  
+</content>
   <!-- /.container -->
 
   <script>
@@ -206,15 +211,23 @@
         }
       }
   });
+
+  if(userData.length == 0) {
+    document.querySelector('#analysis').style.display = "none";
+    document.querySelector('#noData').style.display = "block";
+  } else {
+    document.querySelector('#analysis').style.display = "block";
+    document.querySelector('#noData').style.display = "none";
+  }
   </script>
 
     <!-- Bootstrap core JavaScript -->
     <script src="/assets/appBundle.js"></script>
 
-    <script>
-      // hamburger menu functionality when screen is smaller
-      function openHamburgerMenu() {
-      var x = document.getElementById("myTopnav");
+  <script>
+    // hamburger menu functionality when screen is smaller
+    function openHamburgerMenu() {
+      let x = document.getElementById("myTopnav");
       if (x.className === "topnav") {
         x.className += " responsive";
       } else {
@@ -223,24 +236,19 @@
     }
   </script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/assets/appBundle.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="/assets/appBundle.js"></script>
 
-    <script>
-      // hamburger menu functionality when screen is smaller
-      function openHamburgerMenu() {
-      var x = document.getElementById("myTopnav");
-      if (x.className === "topnav") {
-        x.className += " responsive";
-      } else {
-        x.className = "topnav";
-      }
+  <script>
+    // hamburger menu functionality when screen is smaller
+    function openHamburgerMenu() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
     }
-    </script>
-      
-    <script>
-      if()
-    </script>
+  }
+  </script>
 </body>
-
 </html>
