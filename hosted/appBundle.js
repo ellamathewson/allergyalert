@@ -135,6 +135,17 @@ var handleChangePass = function handleChangePass(e) {
   return false;
 };
 
+var handleSubChange = function handleSubChange(e) {
+  e.preventDefault();
+  $('#subError').fadeOut(200);
+  /* Otherwise continue loading new page */
+
+  sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), function (data) {
+    handleSubSuccess('Subscription changed');
+  });
+  return false;
+};
+
 var ChangePassForm = function ChangePassForm(props) {
   // webkit text security from https://stackoverflow.com/questions/1648665/changing-the-symbols-shown-in-a-html-password-field -->
   return React.createElement("form", {
@@ -200,21 +211,11 @@ var ChangeSubscribeButton = function ChangeSubscribeButton(props) {
     className: "alert alert-danger",
     role: "alert",
     id: "subError"
-  }, " Subscribed Successful "));
-};
-
-var handleSubChange = function handleSubChange(e) {
-  e.preventDefault();
-  /* if any of the fields are blank show error */
-
-  $('#subError').fadeIn(200);
-  /* Otherwise continue loading new page */
-
-  sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), function (data) {
-    handleSuccess('Subscription changed');
-    console.log('success');
-  });
-  return false;
+  }, "Subscribe Error"), React.createElement("div", {
+    className: "alert alert-success",
+    role: "alert",
+    id: "subSuccess"
+  }, "Subscribe Success"));
 };
 
 var setupPassChangeForm = function setupPassChangeForm(csrf) {
@@ -264,6 +265,11 @@ var handleError = function handleError(message) {
 var handleSuccess = function handleSuccess(message) {
   $('#success').text = message;
   $('#success').fadeIn(200);
+};
+
+var handleSubSuccess = function handleSubSuccess(message) {
+  $('#subSuccess').text = message;
+  $('#subSuccess').fadeIn(200);
 };
 
 var redirect = function redirect(response) {

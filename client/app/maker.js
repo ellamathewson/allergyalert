@@ -95,13 +95,23 @@ const handleChangePass = (e) => {
       return false;
     }
   
-  
     $('#error').fadeIn(200);
     /* Otherwise continue loading new page */
     sendAjaxWithCallback($('#changePassword').attr('action'), $('#changePassword').serialize(), (data) => {
       handleSuccess('Password changed');
     });
   
+    return false;
+  };
+
+  const handleSubChange = (e) => {
+    e.preventDefault();
+    $('#subError').fadeOut(200);
+    
+    /* Otherwise continue loading new page */
+    sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), (data) => {
+      handleSubSuccess('Subscription changed');
+    });
     return false;
   };
   
@@ -129,23 +139,10 @@ const handleChangePass = (e) => {
         onSubmit={handleSubChange}>
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="formSubmit" type="submit" value="Subscribe" />
-        <div className="alert alert-danger" role="alert" id="subError"> Subscribed Successful </div>
+        <div className="alert alert-danger" role="alert" id="subError">Subscribe Error</div>
+        <div className="alert alert-success" role="alert" id="subSuccess">Subscribe Success</div>
         </form>
       )
-  };
-
-  const handleSubChange = (e) => {
-    e.preventDefault();
-    /* if any of the fields are blank show error */
-  
-    $('#subError').fadeIn(200);
-    /* Otherwise continue loading new page */
-    sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), (data) => {
-      handleSuccess('Subscription changed');
-      console.log('success');
-    });
-  
-    return false;
   };
 
 const setupPassChangeForm = function(csrf) {

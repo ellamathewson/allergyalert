@@ -37,14 +37,18 @@
   <!-- Page Content -->
 <content class="accountPage">
 <h1>Settings</h1>
-  <div id="account">
+  <div class="account">
     {{#if userInfo}}
     <h2>Username: {{userInfo.username}}</h2>
-    <h2>Subscribed: {{userInfo.subscribed}}</h2>
     {{/if}}
   </div>
   <br><br>
   <div id="changePassForm"></div>
+  <div class="account">
+    {{#if userInfo}}
+    <h2>Subscribed: {{userInfo.subscribed}}</h2>
+    {{/if}}
+  </div>
   <div id="changeSubscribe"></div>
   </content>
     <!-- /.container -->

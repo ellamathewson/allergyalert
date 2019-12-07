@@ -184,6 +184,11 @@ var handleSuccess = function handleSuccess(message) {
   $('#success').fadeIn(200);
 };
 
+var handleSubSuccess = function handleSubSuccess(message) {
+  $('#subSuccess').text = message;
+  $('#subSuccess').fadeIn(200);
+};
+
 var redirect = function redirect(response) {
   $('#error').fadeOut(200);
   window.location = response.redirect;
