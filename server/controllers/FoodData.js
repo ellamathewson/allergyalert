@@ -31,20 +31,6 @@ const dataPage = (req, res) => {
   });
 };
 
-/* Renders allergy data page */
-const allergyPage = (req, res) => {
-  Data.DataModel.findByMeal(req.session.account._id, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'an error occured' });
-    }
-    return res.render('analysis', {
-      csrfToken: req.csrfToken(),
-      analyzeFood: docs,
-    });
-  });
-};
-
 /* Adding meal to database functionality */
 const makePost = (req, res) => {
   console.log('in makePost function');
@@ -95,6 +81,5 @@ const getMeals = (request, response) => {
 
 module.exports.makerPage = makerPage;
 module.exports.dataPage = dataPage;
-module.exports.allergyPage = allergyPage;
 module.exports.makePost = makePost;
 module.exports.getMeals = getMeals;
