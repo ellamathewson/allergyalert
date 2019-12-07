@@ -1,12 +1,8 @@
 
 /* eslint-disable linebreak-style */
-
 /* eslint-disable eqeqeq */
-
 /* eslint-disable no-unused-vars */
-
 /* eslint-disable object-shorthand */
-
 /* eslint-disable no-undef */
 
 const sendAjaxWithCallback = function sendAjaxWithCallback(action, data, callback) {
