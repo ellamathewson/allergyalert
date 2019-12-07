@@ -84,6 +84,67 @@ const loadMealsFromServer = () => {
     });
 };
 
+const handleChangePass = (e) => {
+    e.preventDefault();
+    $('#error').fadeOut(200);
+  
+    if ($('#oldPass').val() == '' || $('#newPass1').val() == '' || $('#newPass2').val() == '') {
+      handleError('All fields are required');
+      return false;
+    }
+  
+    if ($('#newPass1').val() !== $('#newPass2').val()) {
+      handleError('Passwords do not match');
+      return false;
+    }
+  
+  
+    $('#error').fadeIn(200);
+    /* Otherwise continue loading new page */
+    sendAjaxWithCallback($('#changePassword').attr('action'), $('#changePassword').serialize(), (data) => {
+      handleSuccess('Password changed');
+    });
+  
+    return false;
+  };
+  
+  const ChangePassForm = (props) => {
+    // webkit text security from https://stackoverflow.com/questions/1648665/changing-the-symbols-shown-in-a-html-password-field -->
+    return (
+      <form id="changePassword" name="changePassword" 
+      action="/changePassword" method="POST" 
+      class="mealForm" onSubmit={handleChangePass}>
+        <input class="textBox add" id="oldPass" type="text" name="oldPassword" placeholder="Old Password" />
+        <input class="textBox add" id="newPass1" type="text" name="newPass1" style="-webkit-text-security: square" placeholder="New Password" />
+        <input class="textBox add" id="newPass2" type="text" name="newPass2" style="-webkit-text-security: square" placeholder="Repeat New Password" />
+        <input type="hidden" name="_csrf" value={props.csrf} />
+        <input class="formSubmit" type="submit" value="Change Password" />
+        <div class="alert alert-danger" role="alert" id="error">Error</div>
+        <div class="alert alert-success" role="alert" id="success">Success</div>
+    </form>
+    )
+  }
+  
+  const handleSubChange = (e) => {
+    e.preventDefault();
+    /* if any of the fields are blank show error */
+  
+    $('#error').fadeIn(200);
+    /* Otherwise continue loading new page */
+    sendAjaxWithCallback($('#changeSubscription').attr('action'), $('#changeSubscription').serialize(), (data) => {
+      handleSuccess('Subscription changed');
+      console.log('success');
+    });
+  
+    return false;
+  };
+
+const setupPassChangeForm = function(csrf) {
+    ReactDOM.render(
+    <ChangePassForm csrf={csrf} />, document.querySelector('#changePassForm')
+    );
+};
+
 const setup = function(csrf) {
     ReactDOM.render(
         <MealForm csrf={csrf} />, document.querySelector("#addFood")
@@ -102,9 +163,19 @@ const getToken = () => {
     });
 };
 
+const getUserToken = () => {
+    sendGenericAjax('GET', '/getToken', null, (result) => {
+        setup(result.csrfToken);
+    });
+}
+
 $(document).ready(function() {
-    /* https://stackoverflow.com/questions/21718282/check-if-url-contains-string-with-jquery */
+    /* https://www.w3docs.com/snippets/javascript/how-to-get-current-url-in-javascript.html */
     if(window.location.href.indexOf("maker") > -1) {
         getToken();
+    }
+
+    if(window.location.href.indexOf("account") > -1) {
+        getUserToken();
     }
 });
