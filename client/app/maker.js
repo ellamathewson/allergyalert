@@ -103,5 +103,9 @@ const getToken = () => {
 };
 
 $(document).ready(function() {
-    getToken();
+    if(window.location.href.indexOf("maker") > -1) {
+        getToken();
+    } else if (window.location.href.indexOf("data") > -1) {
+        
+    }
 });

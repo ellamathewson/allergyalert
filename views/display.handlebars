@@ -1,15 +1,15 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
+ <meta charset="utf-8"/>
   <title>Allergy Attention</title>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/peanutFavicon.png" />
-  <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+  <link rel="stylesheet" type="text/css" href="/assets/main.css"/>
 
   <!-- Bootstrap core CSS -->
   <link href="assets/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <!-- Bootstrap Template from https://getbootstrap.com/docs/4.0/components/alerts/ -->
-
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
 </head>
 
@@ -40,7 +40,7 @@
 <!-- Page Content -->
 <content class="appPage">
 <!-- Sidebar Widgets Column -->
-    <div class="sidebar">
+    <div class="sidebar" style="display:none">
       <!-- Categories Widget -->
         <div class="sort">
           <h3>Ingredient List:</h3>
@@ -61,6 +61,7 @@
       <br><br>
     <canvas id="myChart"></canvas>
     <br><br>
+    <canvas id="barChart"></canvas>
     <!-- Blog Entries Column -->
 </div>  
   </content>
@@ -124,6 +125,86 @@
         },
         options: {}
     });
+
+    const foodData = document.querySelectorAll('h4');
+    const h4Array = [];
+    const foodArray = [];
+    const foodOccuranceArray = [];
+
+    const getOccurrence = (array, value) => {
+      let count = 0;
+      array.forEach((v) => (v === value && count++));
+      return count;
+    }
+
+    foodData.forEach((item) => {
+        h4Array.push(item.innerHTML.split(','));      
+    });
+
+    h4Array.forEach((food) => {
+        //console.log(food);
+        food.forEach((item) => {
+            console.log(item);
+            item = item.trim();
+            foodArray.push(item);
+            foodOccuranceArray.push(getOccurrence(foodArray, item));
+        });
+    });
+
+    console.log(foodArray);
+    console.log(foodOccuranceArray);
+
+    let ctx2 = document.getElementById('barChart').getContext('2d');
+
+    var myBarChart = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+       labels: foodArray,
+    datasets: [{
+      label: 'Ingredients',
+      data: foodOccuranceArray,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderWidth: 1
+    }]
+        },
+      options: {
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
+        }
+      }
+  });
+  </script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/assets/appBundle.js"></script>
+
+    <script>
+      // hamburger menu functionality when screen is smaller
+      function openHamburgerMenu() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
   </script>
 
     <!-- Bootstrap core JavaScript -->
