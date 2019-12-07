@@ -147,8 +147,8 @@ h3 {
   flex-direction: column; }
 
 .main {
-  width: 55vw;
-  margin: 0 5vw 0 0; }
+  width: 90vw;
+  margin: 0 5vw; }
 
 .sidebar {
   width: 30vw;
