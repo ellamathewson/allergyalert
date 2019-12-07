@@ -58,7 +58,7 @@ const signup = (request, response) => {
   req.body.username = `${req.body.username}`;
   req.body.pass = `${req.body.pass}`;
   req.body.pass2 = `${req.body.pass2}`;
-  req.body.subscribe = `${req.body.subscribe}`;
+  req.body.subscribed = `${req.body.subscribed}`;
 
   // checks that all fields are filled out
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
@@ -80,7 +80,7 @@ const signup = (request, response) => {
       username: req.body.username,
       salt,
       password: hash,
-      subscribe: req.body.subscribe,
+      subscribed: req.body.subscribed,
     };
 
     const newAccount = new Account.AccountModel(accountData);
@@ -106,11 +106,13 @@ const signup = (request, response) => {
 
 /* Renders account page */
 const accountPage = (req, res) => {
+  console.log('in account page');
   AccountData.AccountModel.findByUsername(req.session.account.username, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
+    console.log(req.session.account);
     return res.render('account', {
       csrfToken: req.csrfToken(),
       userInfo: req.session.account,

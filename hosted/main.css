@@ -11,7 +11,7 @@
 footer {
   margin-top: 25vh; }
 
-content {
+content, #changePassForm {
   display: flex;
   flex-direction: column; }
 

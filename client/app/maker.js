@@ -21,9 +21,6 @@ const handleMeal = (e) => {
 };
 
 const MealForm = (props) => {
-    // submit = (e) => {
-    //     let formMealName = 
-    // }
     return (
     <form id="mealForm" onSubmit={handleMeal}
         name="mealForm" action="/maker"
@@ -114,13 +111,13 @@ const handleChangePass = (e) => {
       <form id="changePassword" name="changePassword" 
       action="/changePassword" method="POST" 
       class="mealForm" onSubmit={handleChangePass}>
-        <input class="textBox add" id="oldPass" type="text" name="oldPassword" placeholder="Old Password" />
-        <input class="textBox add" id="newPass1" type="text" name="newPass1" style="-webkit-text-security: square" placeholder="New Password" />
-        <input class="textBox add" id="newPass2" type="text" name="newPass2" style="-webkit-text-security: square" placeholder="Repeat New Password" />
+        <input className="textBox add" id="oldPass" type="text" name="oldPassword" placeholder="Old Password" />
+        <input className="textBox add" id="newPass1" type="text" name="newPass1" placeholder="New Password" />
+        <input className="textBox add" id="newPass2" type="text" name="newPass2" placeholder="Repeat New Password" />
         <input type="hidden" name="_csrf" value={props.csrf} />
-        <input class="formSubmit" type="submit" value="Change Password" />
-        <div class="alert alert-danger" role="alert" id="error">Error</div>
-        <div class="alert alert-success" role="alert" id="success">Success</div>
+        <input className="formSubmit" type="submit" value="Change Password" />
+        <div className="alert alert-danger" role="alert" id="error">Error</div>
+        <div className="alert alert-success" role="alert" id="success">Success</div>
     </form>
     )
   }
@@ -141,7 +138,7 @@ const handleChangePass = (e) => {
 
 const setupPassChangeForm = function(csrf) {
     ReactDOM.render(
-    <ChangePassForm csrf={csrf} />, document.querySelector('#changePassForm')
+    <ChangePassForm csrf={csrf} />, document.querySelector("#changePassForm")
     );
 };
 
@@ -157,25 +154,19 @@ const setup = function(csrf) {
     loadMealsFromServer();
 };
 
-const getToken = () => {
+const getToken = (url) => {
     sendGenericAjax('GET', '/getToken', null, (result) => {
-        setup(result.csrfToken);
+        if(window.location.href.indexOf("maker") > -1) {
+            setup(result.csrfToken);
+        }
+        if(window.location.href.indexOf("account") > -1) {
+            setupPassChangeForm(result.csrfToken);
+        }
+        
     });
 };
 
-const getUserToken = () => {
-    sendGenericAjax('GET', '/getToken', null, (result) => {
-        setup(result.csrfToken);
-    });
-}
-
 $(document).ready(function() {
     /* https://www.w3docs.com/snippets/javascript/how-to-get-current-url-in-javascript.html */
-    if(window.location.href.indexOf("maker") > -1) {
-        getToken();
-    }
-
-    if(window.location.href.indexOf("account") > -1) {
-        getUserToken();
-    }
+    getToken();
 });

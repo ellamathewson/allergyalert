@@ -93,9 +93,6 @@ var handleMeal = function handleMeal(e) {
 };
 
 var MealForm = function MealForm(props) {
-  // submit = (e) => {
-  //     let formMealName = 
-  // }
   return React.createElement("form", {
     id: "mealForm",
     onSubmit: handleMeal,
@@ -219,39 +216,37 @@ var ChangePassForm = function ChangePassForm(props) {
     "class": "mealForm",
     onSubmit: handleChangePass
   }, React.createElement("input", {
-    "class": "textBox add",
+    className: "textBox add",
     id: "oldPass",
     type: "text",
     name: "oldPassword",
     placeholder: "Old Password"
   }), React.createElement("input", {
-    "class": "textBox add",
+    className: "textBox add",
     id: "newPass1",
     type: "text",
     name: "newPass1",
-    style: "-webkit-text-security: square",
     placeholder: "New Password"
   }), React.createElement("input", {
-    "class": "textBox add",
+    className: "textBox add",
     id: "newPass2",
     type: "text",
     name: "newPass2",
-    style: "-webkit-text-security: square",
     placeholder: "Repeat New Password"
   }), React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
   }), React.createElement("input", {
-    "class": "formSubmit",
+    className: "formSubmit",
     type: "submit",
     value: "Change Password"
   }), React.createElement("div", {
-    "class": "alert alert-danger",
+    className: "alert alert-danger",
     role: "alert",
     id: "error"
   }, "Error"), React.createElement("div", {
-    "class": "alert alert-success",
+    className: "alert alert-success",
     role: "alert",
     id: "success"
   }, "Success"));
@@ -274,7 +269,7 @@ var handleSubChange = function handleSubChange(e) {
 var setupPassChangeForm = function setupPassChangeForm(csrf) {
   ReactDOM.render(React.createElement(ChangePassForm, {
     csrf: csrf
-  }), document.querySelector('#changePassForm'));
+  }), document.querySelector("#changePassForm"));
 };
 
 var setup = function setup(csrf) {
@@ -287,27 +282,21 @@ var setup = function setup(csrf) {
   loadMealsFromServer();
 };
 
-var getToken = function getToken() {
+var getToken = function getToken(url) {
   sendGenericAjax('GET', '/getToken', null, function (result) {
-    setup(result.csrfToken);
-  });
-};
+    if (window.location.href.indexOf("maker") > -1) {
+      setup(result.csrfToken);
+    }
 
-var getUserToken = function getUserToken() {
-  sendGenericAjax('GET', '/getToken', null, function (result) {
-    setup(result.csrfToken);
+    if (window.location.href.indexOf("account") > -1) {
+      setupPassChangeForm(result.csrfToken);
+    }
   });
 };
 
 $(document).ready(function () {
   /* https://www.w3docs.com/snippets/javascript/how-to-get-current-url-in-javascript.html */
-  if (window.location.href.indexOf("maker") > -1) {
-    getToken();
-  }
-
-  if (window.location.href.indexOf("account") > -1) {
-    getUserToken();
-  }
+  getToken();
 });
 /* eslint-disable no-undef */
 
