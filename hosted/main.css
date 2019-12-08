@@ -247,16 +247,20 @@ li:hover {
   Signup Page
 
 */
-.checkbox {
-  height: 25px;
-  width: 25px;
-  border-radius: 50px;
+#checkboxDiv {
+  display: flex;
+  flex-direction: row;
   width: 60%;
   margin: 0 20%;
   padding: 1em; }
 
-#subscribe {
-  background-color: green; }
+#subLabel {
+  font-size: 25px; }
+
+#subscr {
+  width: 30px;
+  height: 30px;
+  margin: 0 0 0 1em; }
 
 #noData {
   display: none; }

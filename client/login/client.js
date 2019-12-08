@@ -38,6 +38,19 @@ const handleLogin = (e) => {
   
     return false;
   };
+
+  const Checkbox = (checked) => {
+    return (
+      <div id="checkboxDiv">
+        <label id="subLabel">Subsrcibe:</label>
+        <input className="checkbox" id="subscr" type="checkbox" name="subscr"/>
+      </div>
+    )
+  };
+
+  Checkbox.defaultProps = {
+    checked: false
+  };
   
   const LoginWindow = (props) => {
       return (
@@ -60,27 +73,12 @@ const handleLogin = (e) => {
         <input className="textBox" id="user" type="text" name="username" placeholder="Username"/>
         <input className="textBox" id="pass" type="password" name="pass" placeholder="Password"/>
         <input className="textBox" id="pass2" type="password" name="pass2" placeholder="Retype password"/>
-        <div class="ui checkbox">
-          <input type="checkbox" class="hidden" tabindex="0" />
-          <label>Subscribe</label>
-        </div>
+        <Checkbox></Checkbox>
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="formSubmit" type="submit" value="Sign Up" />
     </form>
     );
   };
-  
-  // const NavBar = (props) => {
-  //   return (
-  //   <div class="topnav" id="myTopnav">
-  //     <a id="title">Allergy Attention</a>
-  //     <a href="/login" class="active" id="loginButton">Login</a>
-  //     <a href="/signup" id="signupButton">Signup</a>
-  //     <a href="javascript:void(0);" class="icon" onclick="openHamburgerMenu()">
-  //       <img class="hamburger" src="/assets/img/menu.png"/></a>
-  //   </div>
-  //   )
-  // }
 
   const createLoginWindow = (csrf) => {
     ReactDOM.render(
@@ -88,13 +86,6 @@ const handleLogin = (e) => {
       document.querySelector("#content")
     );
   };
-
-  // const createNavBar = () => {
-  //   ReactDOM.render(
-  //     <NavBar />,
-  //     document.querySelector("nav")
-  //   );
-  // };
   
   const createSignupWindow = (csrf) => {
     ReactDOM.render(

@@ -41,6 +41,23 @@ var handleSignup = function handleSignup(e) {
   return false;
 };
 
+var Checkbox = function Checkbox(checked) {
+  return React.createElement("div", {
+    id: "checkboxDiv"
+  }, React.createElement("label", {
+    id: "subLabel"
+  }, "Subsrcibe:"), React.createElement("input", {
+    className: "checkbox",
+    id: "subscr",
+    type: "checkbox",
+    name: "subscr"
+  }));
+};
+
+Checkbox.defaultProps = {
+  checked: false
+};
+
 var LoginWindow = function LoginWindow(props) {
   return React.createElement("form", {
     id: "loginForm",
@@ -98,13 +115,7 @@ var SignupWindow = function SignupWindow(props) {
     type: "password",
     name: "pass2",
     placeholder: "Retype password"
-  }), React.createElement("div", {
-    "class": "ui checkbox"
-  }, React.createElement("input", {
-    type: "checkbox",
-    "class": "hidden",
-    tabindex: "0"
-  }), React.createElement("label", null, "Subscribe")), React.createElement("input", {
+  }), React.createElement(Checkbox, null), React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
@@ -113,30 +124,13 @@ var SignupWindow = function SignupWindow(props) {
     type: "submit",
     value: "Sign Up"
   }));
-}; // const NavBar = (props) => {
-//   return (
-//   <div class="topnav" id="myTopnav">
-//     <a id="title">Allergy Attention</a>
-//     <a href="/login" class="active" id="loginButton">Login</a>
-//     <a href="/signup" id="signupButton">Signup</a>
-//     <a href="javascript:void(0);" class="icon" onclick="openHamburgerMenu()">
-//       <img class="hamburger" src="/assets/img/menu.png"/></a>
-//   </div>
-//   )
-// }
-
+};
 
 var createLoginWindow = function createLoginWindow(csrf) {
   ReactDOM.render(React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
-}; // const createNavBar = () => {
-//   ReactDOM.render(
-//     <NavBar />,
-//     document.querySelector("nav")
-//   );
-// };
-
+};
 
 var createSignupWindow = function createSignupWindow(csrf) {
   ReactDOM.render(React.createElement(SignupWindow, {
