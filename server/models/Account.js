@@ -20,7 +20,6 @@ const AccountSchema = new mongoose.Schema({
   },
   subscribed: {
     type: Boolean,
-    default: false,
   },
   salt: {
     type: Buffer,
@@ -39,6 +38,7 @@ const AccountSchema = new mongoose.Schema({
 AccountSchema.statics.toAPI = (doc) => ({
   // _id is built into your mongo document and is guaranteed to be unique
   username: doc.username,
+  subscribed: doc.subscribed,
   _id: doc._id,
 });
 

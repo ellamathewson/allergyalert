@@ -38,19 +38,6 @@ const handleLogin = (e) => {
   
     return false;
   };
-
-  const Checkbox = (checked) => {
-    return (
-      <div id="checkboxDiv">
-        <label id="subLabel">Subsrcibe:</label>
-        <input className="checkbox" id="subscr" type="checkbox" name="subscr"/>
-      </div>
-    )
-  };
-
-  Checkbox.defaultProps = {
-    checked: false
-  };
   
   const LoginWindow = (props) => {
       return (
@@ -73,7 +60,6 @@ const handleLogin = (e) => {
         <input className="textBox" id="user" type="text" name="username" placeholder="Username"/>
         <input className="textBox" id="pass" type="password" name="pass" placeholder="Password"/>
         <input className="textBox" id="pass2" type="password" name="pass2" placeholder="Retype password"/>
-        <Checkbox></Checkbox>
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="formSubmit" type="submit" value="Sign Up" />
     </form>

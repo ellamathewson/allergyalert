@@ -41,23 +41,6 @@ var handleSignup = function handleSignup(e) {
   return false;
 };
 
-var Checkbox = function Checkbox(checked) {
-  return React.createElement("div", {
-    id: "checkboxDiv"
-  }, React.createElement("label", {
-    id: "subLabel"
-  }, "Subsrcibe:"), React.createElement("input", {
-    className: "checkbox",
-    id: "subscr",
-    type: "checkbox",
-    name: "subscr"
-  }));
-};
-
-Checkbox.defaultProps = {
-  checked: false
-};
-
 var LoginWindow = function LoginWindow(props) {
   return React.createElement("form", {
     id: "loginForm",
@@ -115,7 +98,7 @@ var SignupWindow = function SignupWindow(props) {
     type: "password",
     name: "pass2",
     placeholder: "Retype password"
-  }), React.createElement(Checkbox, null), React.createElement("input", {
+  }), React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf

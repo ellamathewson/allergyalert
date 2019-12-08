@@ -4,6 +4,7 @@
 const models = require('../models');
 
 const Data = models.Data;
+const User = models.Account;
 
 /* Renders app page */
 const makerPage = (req, res) => {
@@ -19,11 +20,23 @@ const makerPage = (req, res) => {
 
 /* Renders data page */
 const dataPage = (req, res) => {
+  // const isSubscribed = false;
+
+  User.AccountModel.findByUsername(req.session.account.username, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+    // console.log(req.session.account);
+  });
+
   Data.DataModel.findByMeal(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
+    // console.log(req.session);
+
     return res.render('display', {
       csrfToken: req.csrfToken(),
       displayFood: docs,
