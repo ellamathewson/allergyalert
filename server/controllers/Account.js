@@ -162,7 +162,7 @@ const changeSubscription = (request, response) => {
       if (err) {
         return res.status(400).json({ err });
       }
-      return res.send();
+      return res.json({ message: 'Subscribed' });
     });
 };
 
