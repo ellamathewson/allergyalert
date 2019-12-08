@@ -161,6 +161,7 @@ const changeSubscription = (request, response) => {
     if (err) {
       return res.status(400).json({ err });
     }
+    req.session.account.subscribed = true;
     return res.json({ message: 'Subscribed' });
   });
 };

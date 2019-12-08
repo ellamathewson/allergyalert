@@ -20,6 +20,7 @@ const AccountSchema = new mongoose.Schema({
   },
   subscribed: {
     type: Boolean,
+    default: false,
   },
   salt: {
     type: Buffer,
