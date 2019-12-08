@@ -18,6 +18,10 @@ const AccountSchema = new mongoose.Schema({
     unique: true,
     match: /^[A-Za-z0-9_\-.]{1,16}$/,
   },
+  subscribed: {
+    type: Boolean,
+    default: false,
+  },
   salt: {
     type: Buffer,
     required: true,
@@ -29,10 +33,6 @@ const AccountSchema = new mongoose.Schema({
   createdDate: {
     type: Date,
     default: Date.now,
-  },
-  subscribed: {
-    type: Boolean,
-    default: false,
   },
 });
 

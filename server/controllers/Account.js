@@ -157,13 +157,15 @@ const changeSubscription = (request, response) => {
   const req = request;
   const res = response;
 
-  Account.AccountModel.updateOne({ username: req.session.account.username }, { subscribed: true },
-    (err) => {
-      if (err) {
-        return res.status(400).json({ err });
-      }
-      return res.json({ message: 'Subscribed' });
-    });
+  Account.AccountModel.updateOne({ username: req.session.account.username }, {
+    subscribed: true,
+  },
+  (err) => {
+    if (err) {
+      return res.status(400).json({ err });
+    }
+    return res.json({ message: 'Subscribed' });
+  });
 };
 
 // requests csrf tokens when it makes requests
