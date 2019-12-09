@@ -146,6 +146,17 @@ var handleSubChange = function handleSubChange(e) {
   return false;
 };
 
+var handleUnsubscribe = function handleUnsubscribe(e) {
+  e.preventDefault();
+  $('#subError').fadeOut(200);
+  /* Otherwise continue loading new page */
+
+  sendAjaxWithCallback($('#unsubscribe').attr('action'), $('#unsubscribe').serialize(), function (data) {
+    handleSubSuccess('Unsubscribed');
+  });
+  return false;
+};
+
 var ChangePassForm = function ChangePassForm(props) {
   // webkit text security from https://stackoverflow.com/questions/1648665/changing-the-symbols-shown-in-a-html-password-field -->
   return React.createElement("form", {
@@ -218,13 +229,48 @@ var ChangeSubscribeButton = function ChangeSubscribeButton(props) {
   }, "Subscribe Success"));
 };
 
+var UnsubscribeButton = function UnsubscribeButton(props) {
+  return React.createElement("form", {
+    id: "unsubscribe",
+    name: "unsubscribe",
+    action: "/unsubscribe",
+    method: "POST",
+    onSubmit: handleUnsubscribe
+  }, React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), React.createElement("input", {
+    className: "formSubmit",
+    type: "submit",
+    value: "Unsubscribe"
+  }), React.createElement("div", {
+    className: "alert alert-danger",
+    role: "alert",
+    id: "subError"
+  }, "Subscribe Error"), React.createElement("div", {
+    className: "alert alert-success",
+    role: "alert",
+    id: "subSuccess"
+  }, "Subscribe Success"));
+};
+
 var setupPassChangeForm = function setupPassChangeForm(csrf) {
   ReactDOM.render(React.createElement(ChangePassForm, {
     csrf: csrf
   }), document.querySelector("#changePassForm"));
-  ReactDOM.render(React.createElement(ChangeSubscribeButton, {
-    csrf: csrf
-  }), document.querySelector("#changeSubscribe"));
+  console.log($('#subLabel')[0].innerHTML);
+
+  if ($('#subLabel')[0].innerHTML === "Subscribed: false") {
+    //console.log($('#subLabel')[0].firstChild);
+    ReactDOM.render(React.createElement(ChangeSubscribeButton, {
+      csrf: csrf
+    }), document.querySelector("#changeSubscribe"));
+  } else if ($('#subLabel')[0].innerHTML === 'Subscribed: true') {
+    ReactDOM.render(React.createElement(UnsubscribeButton, {
+      csrf: csrf
+    }), document.querySelector("#changeSubscribe"));
+  }
 };
 
 var setup = function setup(csrf) {

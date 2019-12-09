@@ -166,6 +166,22 @@ const changeSubscription = (request, response) => {
   });
 };
 
+const unsubscribe = (request, response) => {
+  const req = request;
+  const res = response;
+
+  Account.AccountModel.updateOne({ username: req.session.account.username }, {
+    subscribed: false,
+  },
+  (err) => {
+    if (err) {
+      return res.status(400).json({ err });
+    }
+    req.session.account.subscribed = false;
+    return res.json({ message: 'Unsubscribed' });
+  });
+};
+
 // requests csrf tokens when it makes requests
 // allows react app to get one-time token each time it needs to send a form
 const getToken = (request, response) => {
@@ -189,3 +205,4 @@ module.exports.accountPage = accountPage;
 module.exports.changePassword = changePassword;
 module.exports.getToken = getToken;
 module.exports.changeSubscription = changeSubscription;
+module.exports.unsubscribe = unsubscribe;

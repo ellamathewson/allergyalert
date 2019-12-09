@@ -114,6 +114,17 @@ const handleChangePass = (e) => {
     });
     return false;
   };
+
+  const handleUnsubscribe = (e) => {
+    e.preventDefault();
+    $('#subError').fadeOut(200);
+    
+    /* Otherwise continue loading new page */
+    sendAjaxWithCallback($('#unsubscribe').attr('action'), $('#unsubscribe').serialize(), (data) => {
+      handleSubSuccess('Unsubscribed');
+    });
+    return false;
+  }
   
   const ChangePassForm = (props) => {
     // webkit text security from https://stackoverflow.com/questions/1648665/changing-the-symbols-shown-in-a-html-password-field -->
@@ -145,13 +156,34 @@ const handleChangePass = (e) => {
       )
   };
 
+  const UnsubscribeButton = (props) => {
+    return (
+        <form id="unsubscribe" name="unsubscribe" 
+        action="/unsubscribe" method="POST" 
+        onSubmit={handleUnsubscribe}>
+        <input type="hidden" name="_csrf" value={props.csrf} />
+        <input className="formSubmit" type="submit" value="Unsubscribe" />
+        <div className="alert alert-danger" role="alert" id="subError">Subscribe Error</div>
+        <div className="alert alert-success" role="alert" id="subSuccess">Subscribe Success</div>
+        </form>
+      )
+  }
+
 const setupPassChangeForm = function(csrf) {
     ReactDOM.render(
-    <ChangePassForm csrf={csrf} />, document.querySelector("#changePassForm")
+        <ChangePassForm csrf={csrf} />, document.querySelector("#changePassForm")
     );
-    ReactDOM.render(
-        <ChangeSubscribeButton csrf={csrf} />, document.querySelector("#changeSubscribe")
-    );
+        console.log($('#subLabel')[0].innerHTML);
+    if($('#subLabel')[0].innerHTML === "Subscribed: false") {
+        //console.log($('#subLabel')[0].firstChild);
+        ReactDOM.render(
+            <ChangeSubscribeButton csrf={csrf} />, document.querySelector("#changeSubscribe")
+        );
+    } else if($('#subLabel')[0].innerHTML === 'Subscribed: true') {
+        ReactDOM.render(
+            <UnsubscribeButton csrf={csrf} />, document.querySelector("#changeSubscribe")
+        );
+    }    
 };
 
 const setup = function(csrf) {
