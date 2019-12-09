@@ -25,6 +25,7 @@ const router = (app) => {
   app.post('/changePassword', mid.requiresLogin, controllers.Account.changePassword);
 
   app.post('/changeSubscription', mid.requiresLogin, controllers.Account.changeSubscription);
+  app.post('/unsubscribe', mid.requiresLogin, controllers.Account.unsubscribe);
 
   app.get('/data', mid.requiresLogin, controllers.Data.dataPage);
   app.get('/dataBlocked', mid.requiresLogin, controllers.Data.dataPage);
