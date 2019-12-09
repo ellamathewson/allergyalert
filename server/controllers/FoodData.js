@@ -21,19 +21,19 @@ const makerPage = (req, res) => {
 /* Renders data page */
 const dataPage = (req, res) => {
   if (req.session.account.subscribed === true) {
-    User.AccountModel.findByUsername(req.session.account.username, (err, pageDocs) => {
+    Data.DataModel.findByMeal(req.session.account._id, (err, foodDocs) => {
       if (err) {
         console.log(err);
         return res.status(400).json({ error: 'An error occured' });
       }
-      console.log(req.session.account);
       return res.render('display', {
         csrfToken: req.csrfToken(),
-        displayFood: pageDocs,
+        displayFood: foodDocs,
       });
     });
   } else {
-    User.AccountModel.findByUsername(req.session.account.username, (err) => {
+    User.AccountModel.findByUsername(req.session.account.username, (err, docs) => {
+      console.log(`docs ${docs}`);
       if (err) {
         console.log(err);
         return res.status(400).json({ error: 'An error occured' });

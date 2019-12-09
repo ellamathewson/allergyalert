@@ -98,11 +98,11 @@
     let mildDis = 0;
     let painful = 0;
     let urgent = 0;
-    console.log(userData);
+    console.log(`userdata ${userData}`);
 
     // adds 1 to each category when listed to display on chart
     userData.forEach((item) => {
-      console.log(item.innerHTML);
+      console.log(`item innerHTML ${item.innerHTML}`);
         switch(item.innerHTML) {
           case "Urgent Care":
             urgent += 1;
@@ -162,17 +162,16 @@
     });
 
     h4Array.forEach((food) => {
-        //console.log(food);
         food.forEach((item) => {
-            console.log(item);
+            console.log(`fooditem ${item}`);
             item = item.trim();
             foodArray.push(item);
             foodOccuranceArray.push(getOccurrence(foodArray, item));
         });
     });
 
-    console.log(foodArray);
-    console.log(foodOccuranceArray);
+    console.log(`foodarray ${foodArray}`);
+    console.log(`food occurance ${foodOccuranceArray}`);
 
     let ctx2 = document.getElementById('barChart').getContext('2d');
 
