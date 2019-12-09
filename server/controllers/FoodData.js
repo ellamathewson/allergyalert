@@ -33,7 +33,7 @@ const dataPage = (req, res) => {
       });
     });
   } else {
-    User.AccountModel.findByUsername(req.session.account.username, (err, docs) => {
+    User.AccountModel.findByUsername(req.session.account.username, (err) => {
       if (err) {
         console.log(err);
         return res.status(400).json({ error: 'An error occured' });
